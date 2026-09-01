@@ -1,28 +1,51 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // 스크롤 감지 애니메이션 (Fade-in)
-  const observerOptions = { 
-    root: null, 
-    rootMargin: "0px", 
-    threshold: 0.15 
-  };
-  
-  const observer = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("visible");
-        observer.unobserve(entry.target);
-      }
+  // 1. IntersectionObserver (화면 등장 감지)
+  if ('IntersectionObserver' in window) {
+    const observerOptions = { root: null, rootMargin: "0px", threshold: 0.1 };
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll(".fade-in").forEach(el => observer.observe(el));
+  } else {
+    document.querySelectorAll(".fade-in").forEach(el => el.classList.add("visible"));
+  }
+
+  // 2. T01-C19, C20, C21: 마우스 & 키보드 공용 프로젝트 펼치기/접기 상호작용
+  const toggleBtn = document.getElementById("toggle-projects-btn");
+  const extraProjects = document.querySelectorAll(".extra-project");
+
+  if (toggleBtn) {
+    toggleBtn.addEventListener("click", () => {
+      const isExpanded = toggleBtn.getAttribute("aria-expanded") === "true";
+      
+      extraProjects.forEach(card => {
+        if (isExpanded) {
+          card.classList.remove("is-visible");
+        } else {
+          card.classList.add("is-visible");
+        }
+      });
+
+      toggleBtn.setAttribute("aria-expanded", !isExpanded);
+      toggleBtn.textContent = isExpanded ? "프로젝트 전체 보기 (+2)" : "프로젝트 접기";
     });
-  }, observerOptions);
+  }
 
-  document.querySelectorAll(".fade-in").forEach(el => observer.observe(el));
-
-  // 메뉴 클릭 시 부드러운 스크롤 이동
+  // 3. 네비게이션 부드러운 스크롤 이동
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
-      e.preventDefault();
-      const target = document.querySelector(this.getAttribute('href'));
+      const targetId = this.getAttribute('href');
+      if (targetId === '#') return;
+      
+      const target = document.querySelector(targetId);
       if (target) {
+        e.preventDefault();
         target.scrollIntoView({ behavior: 'smooth' });
       }
     });
