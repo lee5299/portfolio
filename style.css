@@ -1,0 +1,89 @@
+/* Color Palette Variables */
+:root {
+  --bg-main: #F9FAFB;
+  --bg-card: #FFFFFF;
+  --bg-sub: #F0F7F5;
+  
+  --text-primary: #1F2937;
+  --text-secondary: #4B5563;
+  
+  /* 메인 민트 톤 */
+  --mint-main: #3BBA9C;
+  --mint-dark: #2A8C74;
+  --mint-light: #E6F7F2;
+  
+  /* 포인트 살구 톤 (인프라/네트워크 전용) */
+  --apricot-main: #E87A5D;
+  --apricot-light: #FFEBF0;
+  
+  /* 민트 계열 그라데이션 */
+  --grad-mint: linear-gradient(135deg, #3BBA9C 0%, #2A8C74 100%);
+  --grad-bg-soft: linear-gradient(180deg, #FAFCFC 0%, #F4F9F8 100%);
+  
+  --border-color: #E5E7EB;
+  --shadow-sm: 0 4px 12px rgba(0,0,0,0.03);
+  --shadow-md: 0 12px 28px rgba(59, 186, 156, 0.12);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; line-height: 1.6; background-color: var(--bg-main); color: var(--text-primary); }
+.container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+
+/* Header */
+header { position: fixed; top: 0; left: 0; width: 100%; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-color); z-index: 100; }
+.nav-container { display: flex; justify-content: space-between; align-items: center; height: 64px; }
+.logo { font-size: 1.25rem; font-weight: 700; color: var(--mint-main); }
+nav ul { display: flex; list-style: none; gap: 24px; }
+nav a { text-decoration: none; color: var(--text-secondary); font-weight: 500; transition: color 0.2s ease; }
+nav a:hover { color: var(--mint-main); }
+
+/* Hero Section */
+.hero { padding: 160px 0 100px; background: var(--grad-bg-soft); border-bottom: 1px solid var(--border-color); }
+.badge { display: inline-block; background: var(--mint-light); color: var(--mint-dark); font-weight: 600; font-size: 0.85rem; padding: 6px 14px; border-radius: 20px; border: 1px solid rgba(59, 186, 156, 0.2); margin-bottom: 20px; }
+.hero h2 { font-size: 2.3rem; font-weight: 700; line-height: 1.35; margin-bottom: 16px; }
+.highlight { color: var(--mint-main); }
+.hero p { font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 32px; }
+.hero-btns { display: flex; gap: 12px; }
+
+.btn { display: inline-block; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; transition: all 0.25s ease; }
+.btn-primary { background: var(--grad-mint); color: #fff; box-shadow: 0 4px 14px rgba(59, 186, 156, 0.3); }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(59, 186, 156, 0.45); }
+.btn-outline { border: 1px solid var(--border-color); color: var(--text-primary); background: var(--bg-card); }
+.btn-outline:hover { border-color: var(--mint-main); color: var(--mint-main); transform: translateY(-2px); }
+
+/* Sections */
+.section { padding: 80px 0; }
+.bg-light { background-color: var(--bg-sub); }
+.section-title { font-size: 1.75rem; margin-bottom: 36px; position: relative; }
+.section-title::after { content: ''; display: block; width: 36px; height: 4px; background: var(--mint-main); border-radius: 2px; margin-top: 8px; }
+
+/* Cards */
+.about-card { background: var(--bg-card); padding: 32px; border-radius: 12px; border: 1px solid var(--border-color); border-left: 4px solid var(--mint-main); box-shadow: var(--shadow-sm); }
+.skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+.skill-card { background: var(--bg-card); padding: 28px; border-radius: 12px; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); transition: all 0.3s ease; }
+.skill-card:hover { transform: translateY(-6px); border-color: var(--mint-main); box-shadow: var(--shadow-md); }
+.skill-card .icon { font-size: 1.8rem; margin-bottom: 12px; }
+.skill-card h4 { font-size: 1.1rem; margin-bottom: 8px; }
+.skill-card p { color: var(--text-secondary); font-size: 0.95rem; }
+
+/* Projects */
+.projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+.project-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 28px; box-shadow: var(--shadow-sm); transition: all 0.3s ease; display: flex; flex-direction: column; justify-content: space-between; }
+.project-card:hover { transform: translateY(-6px); border-color: var(--mint-main); box-shadow: var(--shadow-md); }
+.project-card h4 { font-size: 1.2rem; margin-bottom: 12px; }
+.project-desc { color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 20px; }
+
+/* 태그 분류 (개발: 민트, 인프라: 살구) */
+.project-tags { display: flex; gap: 8px; list-style: none; flex-wrap: wrap; }
+.project-tags li.tag-dev { background: var(--mint-light); color: var(--mint-dark); font-size: 0.8rem; font-weight: 600; padding: 4px 10px; border-radius: 6px; }
+.project-tags li.tag-infra { background: var(--apricot-light); color: var(--apricot-main); font-size: 0.8rem; font-weight: 600; padding: 4px 10px; border-radius: 6px; }
+
+/* Footer */
+footer { background: #111827; color: #fff; padding: 60px 0; text-align: center; }
+footer a { color: var(--mint-main); text-decoration: none; }
+.copyright { margin-top: 24px; font-size: 0.85rem; color: #9CA3AF; }
+
+/* Animation */
+.fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+.fade-in.visible { opacity: 1; transform: translateY(0); }

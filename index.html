@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>개발자 포트폴리오</title>
+  <!-- External CSS 연결 -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="container nav-container">
+      <h1 class="logo">Portfolio<span>.</span></h1>
+      <nav>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container fade-in">
+      <span class="badge">Academic Information & System Maintenance Developer</span>
+      <h2>안녕하세요, <br>안정적인 시스템을 유지하고 관리하는 <span class="highlight">개발자</span>입니다.</h2>
+      <p>학사정보시스템 개발·유지보수 및 네트워크 대응 경험을 바탕으로, 안정적이고 효율적인 시스템 환경을 구축합니다.</p>
+      <div class="hero-btns">
+        <a href="#projects" class="btn btn-primary">프로젝트 보기</a>
+        <a href="#contact" class="btn btn-outline">연락하기</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="section">
+    <div class="container fade-in">
+      <h3 class="section-title">About Me</h3>
+      <div class="about-card">
+        <p>
+          대학 전산실에서 학사정보시스템 개발 및 프로그램 유지보수를 주도적으로 담당했습니다. 
+          시스템 이용 중 발생할 수 있는 장애에 신속히 대응하고, 수기 검증 단계를 축소하여 대학 자원의 낭비를 막는 수요조사 및 시뮬레이션 시스템을 단독 기획·개발하였습니다. 
+          또한, 스위치 하부 단계의 라인 및 트래픽 문제를 직접 처리하며 실무 네트워크 이슈 대응 체계를 익혔습니다.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section id="skills" class="section bg-light">
+    <div class="container fade-in">
+      <h3 class="section-title">Skills</h3>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <div class="icon">💻</div>
+          <h4>Frontend</h4>
+          <p>HTML5, CSS3, JavaScript</p>
+        </div>
+        <div class="skill-card">
+          <div class="icon">⚙️</div>
+          <h4>Backend & DB</h4>
+          <p>Java, SQL, Program Maintenance</p>
+        </div>
+        <div class="skill-card">
+          <div class="icon">🌐</div>
+          <h4>Network & Infrastructure</h4>
+          <p>Sub-switch Troubleshooting, Network Environment Setup, System Monitoring</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects" class="section">
+    <div class="container fade-in">
+      <h3 class="section-title">Projects</h3>
+      <div class="projects-grid">
+        
+        <div class="project-card">
+          <div>
+            <h4>책임학점 수요조사 및 시뮬레이션 시스템</h4>
+            <p class="project-desc">
+              책임학점 계산 전 사전 시뮬레이션을 위한 수요조사 프로그램을 단독 기획 및 개발. 
+              수기 검증 단계를 축소하고 불필요한 강의 개설을 방지하여 대학 자원 낭비 방지.
+            </p>
+          </div>
+          <ul class="project-tags">
+            <li class="tag-dev">단독 개발</li>
+            <li class="tag-dev">학사정보시스템</li>
+            <li class="tag-dev">시뮬레이션</li>
+            <li class="tag-dev">DB/SQL</li>
+          </ul>
+        </div>
+
+        <div class="project-card">
+          <div>
+            <h4>내부망 구축 및 장애 대응 실습 환경 조성</h4>
+            <p class="project-desc">
+              스위치 하부 단계 네트워크 구조 및 실무 환경을 모사한 내부망 환경 구성. 
+              서브넷 분리, 로컬 디바이스 트래픽 관리 및 예기치 못한 라인 장애·접속 오류 발생 시의 정밀한 복구 프로세스 실습.
+            </p>
+          </div>
+          <ul class="project-tags">
+            <li class="tag-infra">네트워크 구축</li>
+            <li class="tag-infra">스위치 장애 대응</li>
+            <li class="tag-infra">내부망 실습</li>
+            <li class="tag-infra">인프라 Maintenance</li>
+          </ul>
+        </div>
+
+        <div class="project-card">
+          <div>
+            <h4>개인 포트폴리오 웹사이트</h4>
+            <p class="project-desc">
+              HTML, CSS, JavaScript를 활용하여 제작하고 GitHub Pages를 통해 배포한 반응형 웹사이트.
+            </p>
+          </div>
+          <ul class="project-tags">
+            <li class="tag-dev">HTML5/CSS3</li>
+            <li class="tag-dev">JavaScript</li>
+            <li class="tag-dev">GitHub Pages</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact / Footer -->
+  <footer id="contact">
+    <div class="container fade-in">
+      <h3>Contact</h3>
+      <p style="margin-top: 10px;">Email: your-email@example.com</p>
+      <p>GitHub: <a href="https://github.com/your-username" target="_blank">github.com/your-username</a></p>
+      <p class="copyright">© 2026. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- External JS 연결 -->
+  <script src="script.js"></script>
+</body>
+</html>
