@@ -20,6 +20,8 @@ Supabase는 서버리스 함수에 Transaction pooler를 권장한다. 애플리
 
 패스키는 RP ID에 묶인다. `project-name.vercel.app`에서 등록한 패스키는 나중에 `portfolio.example.com`으로 자동 이전되지 않는다. 도메인을 바꾸려면 이전 도메인에 접근할 수 있을 때 새 도메인에서 패스키를 다시 등록해야 한다.
 
+현재 확정한 Production origin은 `https://portfoliovercel-beta-three.vercel.app`이고 RP ID는 `portfoliovercel-beta-three.vercel.app`이다. 실제 패스키를 등록한 뒤에는 이 주소를 유지한다.
+
 ### 2. Vercel 소스 연결 방식 — 확정
 
 - GitHub 저장소: `https://github.com/lee5299/portfolio`
@@ -75,8 +77,8 @@ Vercel 대시보드의 **Project → Settings → Environment Variables**에서 
 | 변수 | Production 값 | 비밀 여부 |
 |---|---|---|
 | `DATABASE_URL` | `portfolio_app`용 Supabase Transaction pooler URI | 비밀 |
-| `APP_ORIGIN` | `https://`로 시작하는 최종 주소, 끝 `/` 없음 | 공개 설정 |
-| `RP_ID` | `APP_ORIGIN`의 호스트 이름 | 공개 설정 |
+| `APP_ORIGIN` | `https://portfoliovercel-beta-three.vercel.app` | 공개 설정 |
+| `RP_ID` | `portfoliovercel-beta-three.vercel.app` | 공개 설정 |
 | `RP_NAME` | 패스키 창에 표시할 이름 | 공개 설정 |
 | `OWNER_SETUP_CODE_HASH` | owner 코드의 SHA-256 해시 | 비밀 취급 |
 | `PEER_SETUP_CODE_HASH` | peer 코드의 SHA-256 해시 | 비밀 취급 |

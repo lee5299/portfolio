@@ -4,6 +4,7 @@
 - **Status:** Vercel + Supabase implementation complete; service provisioning and real-device verification pending
 - **Owner:** 개인 프로젝트
 - **Repository:** https://github.com/lee5299/portfolio
+- **Production URL:** https://portfoliovercel-beta-three.vercel.app
 
 ## Goal
 
@@ -38,6 +39,6 @@
 ## Delivery
 
 - **Technology stack:** Node.js 22+, Express 5, SimpleWebAuthn 14, Vanilla JS, Supabase PostgreSQL
-- **Deployment target:** Vercel Functions + Supabase Transaction pooler
+- **Deployment target:** `portfoliovercel-beta-three.vercel.app` on Vercel Functions + Supabase Transaction pooler
 - **Rollback approach:** Vercel의 직전 정상 배포로 되돌린다. 데이터베이스 변경은 앞으로 추가할 순방향 보정 migration으로 복구하며 운영 데이터가 있는 테이블을 임의로 삭제하지 않는다.
 - **Test command:** See `config/automation.json`.

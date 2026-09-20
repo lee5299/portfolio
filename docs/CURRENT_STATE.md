@@ -17,6 +17,7 @@
 - Supabase 스키마 migration, Transaction pooler 연결, DB 기반 challenge·세션과 Vercel Express 진입점을 구현했다.
 - 세션·ceremony 식별자는 해시로 저장하고 최초 등록과 마지막 패스키 삭제 경쟁 조건을 트랜잭션 잠금으로 보호했다.
 - GitHub `lee5299/portfolio`의 `feat/passkey-private-area` 브랜치에 검증된 구현을 push했다. `main`과 기존 Vercel Production은 아직 변경하지 않았다.
+- 기존 Production `https://portfoliovercel-beta-three.vercel.app`가 변경 전 정적 페이지를 `200 OK`로 제공하는 것을 확인했다.
 
 ## In progress
 
