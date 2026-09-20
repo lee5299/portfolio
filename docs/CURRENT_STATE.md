@@ -16,6 +16,7 @@
 - 자동 시험과 브라우저 데스크톱·모바일 화면 검증을 완료했다.
 - Supabase 스키마 migration, Transaction pooler 연결, DB 기반 challenge·세션과 Vercel Express 진입점을 구현했다.
 - 세션·ceremony 식별자는 해시로 저장하고 최초 등록과 마지막 패스키 삭제 경쟁 조건을 트랜잭션 잠금으로 보호했다.
+- GitHub `lee5299/portfolio`의 `feat/passkey-private-area` 브랜치에 검증된 구현을 push했다. `main`과 기존 Vercel Production은 아직 변경하지 않았다.
 
 ## In progress
 
@@ -27,7 +28,8 @@
 1. `docs/VERIFICATION_GUIDE.md`에 따라 실제 패스키 두 개와 비교 계정 패스키를 등록한다.
 2. 실제 등록·로그인·삭제 흐름의 정제된 증거를 수집한다.
 3. `docs/DEPLOYMENT.md` 순서로 Supabase migration과 Vercel 환경변수를 적용한다.
-4. 최종 운영 도메인과 RP ID로 배포한 뒤 같은 실기 검증을 반복한다.
+4. 기능 브랜치의 Preview 상태를 확인하고 준비가 끝나면 `main`으로 병합한다.
+5. 최종 운영 도메인과 RP ID로 배포한 뒤 같은 실기 검증을 반복한다.
 
 ## Known risks and open questions
 

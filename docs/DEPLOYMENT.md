@@ -20,13 +20,13 @@ Supabase는 서버리스 함수에 Transaction pooler를 권장한다. 애플리
 
 패스키는 RP ID에 묶인다. `project-name.vercel.app`에서 등록한 패스키는 나중에 `portfolio.example.com`으로 자동 이전되지 않는다. 도메인을 바꾸려면 이전 도메인에 접근할 수 있을 때 새 도메인에서 패스키를 다시 등록해야 한다.
 
-### 2. Vercel 소스 연결 방식
+### 2. Vercel 소스 연결 방식 — 확정
 
-1. **GitHub 저장소 연결 — 추천:** 배포 이력, 소스 제출 URL과 자동 Preview를 함께 관리하기 쉽다.
-2. GitLab 또는 Bitbucket 연결
-3. Vercel CLI 수동 배포: Git 원격 없이 가능하지만 소스 제출 URL과 자동 배포를 별도로 마련해야 한다.
+- GitHub 저장소: `https://github.com/lee5299/portfolio`
+- 기본 브랜치: `main`
+- 준비 브랜치: `feat/passkey-private-area`
 
-현재 작업 폴더는 아직 Git 저장소가 아니다. 배포 요청 때 저장소 생성·연결 또는 CLI 방식 중 하나가 필요하다. 실제 비밀값과 패스키 데이터는 어떤 방식을 택해도 커밋하지 않는다.
+Supabase 환경변수와 migration을 준비하기 전에는 기능 브랜치를 `main`으로 병합하지 않는다. 실제 비밀값과 패스키 데이터는 GitHub에 커밋하지 않는다.
 
 ### 3. Preview 인증 환경
 
@@ -119,7 +119,6 @@ pwsh ./scripts/pre-deploy.ps1
 ## 배포 시 사용자에게 다시 요청할 항목
 
 - 선택한 최종 Production 도메인
-- 선택한 Git 공급자 또는 Vercel CLI 방식
 - Supabase와 Vercel 대시보드 작업 완료 여부
 
 연결 문자열, DB 비밀번호, 등록 코드 등 비밀값은 채팅으로 받지 않는다. 사용자가 각 서비스의 환경변수 입력란에 직접 넣고, 나는 화면 경로와 검증 방법을 안내한다.

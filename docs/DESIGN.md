@@ -94,5 +94,4 @@ challenge에는 용도와 만료 시간을 연결한다. 등록용 challenge를 
 ## Decisions still required
 
 - 최종 Production 도메인과 RP ID
-- Vercel에 소스를 전달할 Git 공급자(GitHub 권장, GitLab, Bitbucket) 또는 CLI 수동 배포 방식
 - Preview 인증 환경이 필요한 경우 고정 Preview 도메인과 별도 Supabase 프로젝트 사용 여부

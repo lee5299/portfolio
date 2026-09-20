@@ -3,7 +3,7 @@
 - **Name:** 패스키로 보호하는 자기소개 페이지
 - **Status:** Vercel + Supabase implementation complete; service provisioning and real-device verification pending
 - **Owner:** 개인 프로젝트
-- **Repository:** 미정
+- **Repository:** https://github.com/lee5299/portfolio
 
 ## Goal
 
