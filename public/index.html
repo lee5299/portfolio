@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="개발·유지보수·인프라 경험을 소개하는 가상 포트폴리오와 패스키 보호 공간입니다.">
+  <title>가상 개발자 포트폴리오</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <header>
+    <div class="container nav-container">
+      <h1 class="logo"><a href="#top">Portfolio<span>.</span></a></h1>
+      <nav aria-label="메인 메뉴">
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#private-space">Private</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container fade-in">
+        <span class="badge">Academic Information &amp; System Maintenance Developer</span>
+        <h2>안녕하세요.<br>안정적인 시스템을 유지하고 관리하는 개발자 <span class="highlight">가상 지원자</span>입니다.</h2>
+        <p>학사정보시스템 개발·유지보수 및 네트워크 대응 경험을 바탕으로 안정적이고 효율적인 시스템 환경을 구축합니다.</p>
+        <p class="demo-notice">이 페이지의 이름과 비공개 자료는 기능 검증을 위해 만든 가상 데이터입니다.</p>
+        <div class="hero-btns">
+          <a href="#projects" class="btn btn-primary">프로젝트 보기</a>
+          <a href="#private-space" class="btn btn-outline">잠긴 공간 보기</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="section">
+      <div class="container fade-in">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-card">
+          <p class="about-quote">“함께 일하는 사람에게 따뜻함과 신뢰를 주는 동료가 되고자 합니다.”</p>
+          <p class="about-text">배움을 멈추지 않고 주변을 살필 여유를 갖춰, 현장에서 시스템을 사용하는 사람들의 작은 불편도 먼저 찾아 해결하겠습니다.</p>
+          <p class="about-text">가상의 대학 전산 환경에서 학사정보시스템 유지보수와 장애 대응을 경험한 사례를 바탕으로, 수기 검증 절차를 줄이는 사전 시뮬레이션 시스템을 기획·개발한 이야기를 정리했습니다.</p>
+          <p>끊임없이 배우고 마음을 가꾸는 자세로 언제나 안심하고 함께 일할 수 있는 동료가 되겠습니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills" class="section bg-light">
+      <div class="container fade-in">
+        <h2 class="section-title">Skills</h2>
+        <div class="skills-grid">
+          <article class="skill-card"><div class="icon" aria-hidden="true">💻</div><h3>Frontend &amp; Web</h3><p>HTML5, CSS3, JavaScript, Responsive Web Design</p></article>
+          <article class="skill-card"><div class="icon" aria-hidden="true">⚙️</div><h3>Backend &amp; Maintenance</h3><p>Java, SQL, Academic Information Systems, Maintenance</p></article>
+          <article class="skill-card"><div class="icon" aria-hidden="true">🌐</div><h3>Network &amp; Infrastructure</h3><p>Sub-switch Troubleshooting, Traffic Monitoring, Line Checks</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="section">
+      <div class="container fade-in">
+        <h2 class="section-title">Projects &amp; Experience</h2>
+        <div class="projects-grid" id="project-list">
+          <article class="project-card">
+            <div><h3>책임학점 사전 시뮬레이션 및 수요조사 시스템</h3><p class="project-desc">수기 검증 프로세스를 자동화한 업무 개선 사례</p><div class="star-box"><div class="star-item"><span class="star-label">상황</span><span class="star-desc">책임학점 산정의 반복적인 수기 검증으로 시간과 행정력이 소모됐습니다.</span></div><div class="star-item"><span class="star-label">행동</span><span class="star-desc">사전 수요조사와 시뮬레이션이 가능한 프로그램을 기획·개발했습니다.</span></div><div class="star-item"><span class="star-label">결과</span><span class="star-desc">검증 단계를 줄이고 불필요한 강의 개설을 사전에 확인할 수 있게 했습니다.</span></div></div></div>
+            <ul class="project-tags"><li>단독 개발</li><li>시뮬레이션</li><li>SQL</li></ul>
+          </article>
+          <article class="project-card">
+            <div><h3>통합학사정보시스템 유지보수 및 장애 대응</h3><p class="project-desc">장애 원인 파악과 사용자 중심 유지관리 사례</p><div class="star-box"><div class="star-item"><span class="star-label">상황</span><span class="star-desc">데이터와 프로그램 오류가 사용자 업무 중단으로 이어졌습니다.</span></div><div class="star-item"><span class="star-label">행동</span><span class="star-desc">소스와 쿼리를 점검하고 재발 방지 로직을 보완했습니다.</span></div><div class="star-item"><span class="star-label">결과</span><span class="star-desc">서비스 연속성과 시스템 신뢰도를 높였습니다.</span></div></div></div>
+            <ul class="project-tags"><li>Java</li><li>SQL</li><li>오류 대응</li></ul>
+          </article>
+          <article class="project-card extra-project">
+            <div><h3>현장 중심 네트워크 장애 조치</h3><p class="project-desc">스위치 하부 회선과 트래픽 흐름을 확인한 복구 사례</p><div class="star-box"><div class="star-item"><span class="star-label">상황</span><span class="star-desc">특정 구역에서 회선 연결 장애와 병목이 발생했습니다.</span></div><div class="star-item"><span class="star-label">행동</span><span class="star-desc">현장 회선 상태와 트래픽 흐름을 점검해 원인을 진단했습니다.</span></div><div class="star-item"><span class="star-label">결과</span><span class="star-desc">하부 인프라 흐름을 이해하고 서비스를 복구했습니다.</span></div></div></div>
+            <ul class="project-tags infra"><li>네트워크</li><li>스위치</li><li>트래픽</li></ul>
+          </article>
+          <article class="project-card extra-project">
+            <div><h3>반응형 웹 포트폴리오</h3><p class="project-desc">직무 경험을 전달하는 가벼운 소개 페이지</p><div class="star-box"><div class="star-item"><span class="star-label">상황</span><span class="star-desc">경험과 강점을 체계적으로 전달할 웹 산출물이 필요했습니다.</span></div><div class="star-item"><span class="star-label">행동</span><span class="star-desc">모바일과 데스크톱에 대응하는 화면을 설계했습니다.</span></div><div class="star-item"><span class="star-label">결과</span><span class="star-desc">공개 소개와 패스키 보호 공간을 분리한 포트폴리오를 만들었습니다.</span></div></div></div>
+            <ul class="project-tags"><li>HTML</li><li>CSS</li><li>Vanilla JS</li></ul>
+          </article>
+        </div>
+        <div class="toggle-container"><button id="toggle-projects-btn" class="btn btn-outline" type="button" aria-expanded="false" aria-controls="project-list">프로젝트 전체 보기 (+2)</button></div>
+      </div>
+    </section>
+
+    <section id="private-space" class="section private-section">
+      <div class="container fade-in">
+        <div class="private-heading">
+          <div><span class="privacy-label">PASSKEY PROTECTED</span><h2 class="section-title">나만의 자리</h2></div>
+          <span id="auth-state" class="state-pill">잠김</span>
+        </div>
+        <p class="private-intro">이 경계 안의 자료는 공개 페이지에 포함되지 않습니다. 서버가 패스키 인증과 소유권을 확인한 뒤에만 전송합니다.</p>
+
+        <div id="locked-panel" class="private-panel locked-panel">
+          <div class="lock-icon" aria-hidden="true">🔐</div>
+          <div><h3>현재 잠겨 있습니다</h3><p>등록한 패스키로 확인하면 가상 개인 메모와 패스키 관리 화면이 열립니다.</p></div>
+          <div class="panel-actions">
+            <button id="login-btn" class="btn btn-primary" type="button">패스키로 열기</button>
+            <button id="show-setup-btn" class="btn btn-outline" type="button" aria-expanded="false" aria-controls="setup-panel">첫 패스키 등록</button>
+          </div>
+          <form id="setup-panel" class="setup-form" hidden>
+            <h4>일회용 등록 코드로 시작하기</h4>
+            <p>서버 콘솔에 표시된 코드는 최초 등록 한 번에만 사용되며 비밀번호로 저장되지 않습니다.</p>
+            <label>가상 계정<select id="setup-account" name="accountAlias"><option value="owner-demo">owner-demo</option><option value="peer-demo">peer-demo</option></select></label>
+            <label>패스키 이름<input id="setup-name" name="passkeyName" type="text" minlength="2" maxlength="40" autocomplete="off" placeholder="예: 내 노트북" required></label>
+            <label>일회용 등록 코드<input id="setup-code" name="setupCode" type="text" autocomplete="off" spellcheck="false" required></label>
+            <button class="btn btn-primary" type="submit">패스키 등록</button>
+          </form>
+        </div>
+
+        <div id="unlocked-panel" class="private-panel" hidden>
+          <div class="private-toolbar"><div><p class="eyebrow">인증된 계정</p><h3 id="account-name">가상 소유자</h3></div><button id="logout-btn" class="btn btn-outline" type="button">로그아웃</button></div>
+          <h4>비공개 항목</h4>
+          <div id="private-items" class="private-items" aria-live="polite"></div>
+          <div class="passkey-manager">
+            <div><h4>등록된 패스키</h4><p>마지막 패스키는 삭제할 수 없습니다. 새 패스키를 먼저 등록하세요.</p></div>
+            <ul id="passkey-list" class="passkey-list"></ul>
+            <form id="add-passkey-form" class="inline-form"><label>새 패스키 이름<input id="new-passkey-name" type="text" minlength="2" maxlength="40" autocomplete="off" placeholder="예: 백업 보안키" required></label><button class="btn btn-primary" type="submit">패스키 추가</button></form>
+          </div>
+        </div>
+        <p id="status-message" class="status-message" role="status" aria-live="polite"></p>
+      </div>
+    </section>
+  </main>
+
+  <footer><div class="container"><h2>Public Portfolio</h2><p>연락처와 계정 주소는 제출용 가상 페이지에서 제외했습니다.</p><p class="copyright">© 2026. Sample data only.</p></div></footer>
+</body>
+</html>

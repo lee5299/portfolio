@@ -1,0 +1,27 @@
+{
+  "name": "passkey-private-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "node scripts/build-client.mjs",
+    "start": "node server/index.js",
+    "start:supabase": "node --env-file=.env.local server/index.js",
+    "dev": "node --watch server/index.js",
+    "test": "node --test",
+    "validate": "powershell -ExecutionPolicy Bypass -File scripts/validate-project.ps1",
+    "setup-code": "node scripts/hash-setup-code.mjs"
+  },
+  "dependencies": {
+    "@simplewebauthn/browser": "^14.0.0",
+    "@simplewebauthn/server": "^14.0.0",
+    "express": "^5.1.0",
+    "postgres": "^3.4.9"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.0"
+  }
+}

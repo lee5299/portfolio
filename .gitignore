@@ -1,0 +1,26 @@
+# Environment and secrets
+.env
+.env.*
+!.env.example
+.vercel/
+
+# Runtime authentication data (never commit)
+/runtime-data/
+/evidence/raw/
+*.runtime.json
+
+# Dependencies and build outputs (extend for the selected stack)
+node_modules/
+dist/
+build/
+coverage/
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Editor and OS files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

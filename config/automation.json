@@ -1,0 +1,5 @@
+{
+  "test": { "command": "npm", "arguments": ["test"] },
+  "build": { "command": "npm", "arguments": ["run", "build"] },
+  "deploy": { "command": "", "arguments": [] }
+}
