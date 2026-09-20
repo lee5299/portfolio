@@ -18,6 +18,8 @@
 - 세션·ceremony 식별자는 해시로 저장하고 최초 등록과 마지막 패스키 삭제 경쟁 조건을 트랜잭션 잠금으로 보호했다.
 - GitHub `lee5299/portfolio`의 `feat/passkey-private-area` 브랜치에 검증된 구현을 push했다. `main`과 기존 Vercel Production은 아직 변경하지 않았다.
 - 기존 Production `https://portfoliovercel-beta-three.vercel.app`가 변경 전 정적 페이지를 `200 OK`로 제공하는 것을 확인했다.
+- 새 Supabase 프로젝트 대신 Planner 프로젝트를 임시 공유하기로 했다. Planner와 격리된 `portfolio_passkey` 스키마와 `portfolio_passkey_app` 역할을 사용하도록 migration과 서버 쿼리를 변경했다.
+- 현재 과제용 Vercel 패스키는 임시 자산으로 취급한다. 새 소개 페이지를 Planner origin에 통합할 때 기존 패스키를 이전하지 않고 새 RP ID에서 다시 등록한다.
 
 ## In progress
 
@@ -36,6 +38,7 @@
 
 - 최종 운영 도메인과 운영 RP ID가 아직 정해지지 않았다. 도메인을 바꾸면 기존 패스키를 새 RP에서 다시 등록해야 한다.
 - 동기화형 패스키 두 개가 실질적으로 독립된 복구 수단인지 확인해야 한다.
-- 실제 Supabase 연결 통합 시험은 프로젝트와 비밀 연결 문자열이 아직 없어 수행하지 못했다.
+- 실제 Supabase 연결 통합 시험은 Planner 프로젝트의 비밀 연결 문자열이 아직 Vercel에 설정되지 않아 수행하지 못했다.
+- Planner와 과제용 포트폴리오는 DB 연결 수·용량·장애 영향을 공유한다. 과제 종료 후 Planner 통합 구조가 확정되면 임시 연결과 데이터를 정리해야 한다.
 - 비밀번호나 별도 복구 수단이 없으므로 등록한 모든 기기·보안키를 실제로 분실하면 계정 복구가 불가능하다.
 - 자동 시험은 실제 인증기 서명을 생성하지 않는다. 실제 장치 등록·서명과 삭제한 패스키 실패는 수동 검증이 필요하다.

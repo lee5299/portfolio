@@ -31,11 +31,11 @@ export class PostgresState {
     const id = token();
     const expiresAt = new Date(Date.now() + this.ceremonyTtlMs);
     await this.sql`
-      delete from portfolio_ceremonies
+      delete from portfolio_passkey.ceremonies
       where expires_at < now() - interval '1 day'
     `;
     await this.sql`
-      insert into portfolio_ceremonies
+      insert into portfolio_passkey.ceremonies
         (id_hash, type, account_id, challenge, passkey_name, bootstrap, expires_at)
       values
         (${digest(id)}, ${value.type}, ${value.accountId ?? null}, ${value.challenge},
@@ -47,7 +47,7 @@ export class PostgresState {
   async consumeCeremony(id, expectedType) {
     if (typeof id !== 'string') return null;
     const rows = await this.sql`
-      update portfolio_ceremonies
+      update portfolio_passkey.ceremonies
       set consumed_at = now()
       where id_hash = ${digest(id)} and type = ${expectedType}
         and consumed_at is null and expires_at > now()
@@ -69,12 +69,12 @@ export class PostgresState {
     const id = token();
     const expiresAt = new Date(Date.now() + this.sessionTtlMs);
     await this.sql`
-      delete from portfolio_sessions
+      delete from portfolio_passkey.sessions
       where expires_at < now() - interval '1 day'
          or revoked_at < now() - interval '1 day'
     `;
     await this.sql`
-      insert into portfolio_sessions (id_hash, account_id, expires_at)
+      insert into portfolio_passkey.sessions (id_hash, account_id, expires_at)
       values (${digest(id)}, ${accountId}, ${expiresAt})
     `;
     return id;
@@ -83,7 +83,7 @@ export class PostgresState {
   async getSession(id) {
     if (typeof id !== 'string' || !id) return null;
     const [row] = await this.sql`
-      select account_id, expires_at from portfolio_sessions
+      select account_id, expires_at from portfolio_passkey.sessions
       where id_hash = ${digest(id)} and revoked_at is null and expires_at > now()
     `;
     return row ? { accountId: row.account_id, expiresAt: row.expires_at.getTime() } : null;
@@ -92,7 +92,7 @@ export class PostgresState {
   async deleteSession(id) {
     if (typeof id !== 'string' || !id) return;
     await this.sql`
-      update portfolio_sessions set revoked_at = now()
+      update portfolio_passkey.sessions set revoked_at = now()
       where id_hash = ${digest(id)} and revoked_at is null
     `;
   }

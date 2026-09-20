@@ -8,7 +8,8 @@
 - [ ] Required environment variables are provisioned in the target environment.
 - [ ] Post-deployment verification and monitoring are defined.
 - [ ] Final Production domain and RP ID are fixed before registering real passkeys.
-- [ ] Supabase migration completed and RLS is enabled on all five application tables.
+- [ ] Planner Supabase에 `portfolio_passkey` 스키마만 추가됐고 다섯 테이블의 RLS가 활성화됐다.
+- [ ] Planner의 기존 스키마·테이블·역할과 애플리케이션 동작이 변경되지 않았다.
 - [ ] `DATABASE_URL` uses the Transaction pooler and exists only in Vercel environment settings.
 - [ ] Owner and peer setup-code plaintext values are stored outside Git; Vercel contains hashes only.
 - [ ] Preview deployment does not share Production passkeys unless it has an intentionally fixed origin and isolated database.

@@ -3,7 +3,7 @@
 ## 확정 구조
 
 - 공개 파일과 Express API: Vercel
-- 운영 데이터: Supabase PostgreSQL
+- 운영 데이터: Planner의 Supabase PostgreSQL을 임시 공유하되 `portfolio_passkey` 스키마으로 격리
 - 연결 방식: Supabase Shared pooler의 **Transaction mode**
 - WebAuthn 상태: 고정된 `APP_ORIGIN`과 `RP_ID`
 - 브라우저의 Supabase 직접 접근: 사용하지 않음
@@ -36,22 +36,21 @@ Supabase 환경변수와 migration을 준비하기 전에는 기능 브랜치를
 2. 고정 Preview 도메인과 별도 Supabase 프로젝트 사용
 3. 모든 임시 Preview URL에서 인증 허용: RP ID와 origin이 계속 달라지고 공격 표면이 커져 사용하지 않는다.
 
-## 1단계: Supabase 프로젝트 준비
+## 1단계: Planner Supabase 프로젝트에 격리 영역 준비
 
-사용자가 Supabase 대시보드에서 직접 수행한다.
+사용자가 Planner의 Supabase 대시보드에서 직접 수행한다. Planner의 기존 테이블, Auth, API 키, Edge Function과 환경변수는 변경하지 않는다.
 
-1. 새 프로젝트를 만들고 Vercel 실행 지역과 가까운 지역을 고른다.
-2. 데이터베이스 비밀번호는 비밀번호 관리자에 저장한다. 채팅, 소스 파일 또는 문서에 붙여 넣지 않는다.
-3. **SQL Editor**에서 [`supabase/migrations/20260920000000_initial.sql`](../supabase/migrations/20260920000000_initial.sql)을 열어 전체 내용을 실행한다.
-4. **Table Editor**에서 다음 다섯 테이블이 생겼는지 확인한다: `portfolio_accounts`, `portfolio_private_items`, `portfolio_passkeys`, `portfolio_ceremonies`, `portfolio_sessions`.
-5. 각 테이블의 RLS가 활성화됐는지 확인한다. 브라우저용 `anon`/`authenticated` 정책은 만들지 않는다.
-6. 비밀번호 관리자에서 이 서비스 전용 DB 비밀번호를 새로 만든다. SQL Editor의 새 임시 쿼리에서 아래 명령의 자리표시자만 바꾸어 한 번 실행한 뒤 쿼리 내용을 지운다. 이 값은 프로젝트 DB 관리자 비밀번호와 달라야 한다.
+1. 변경 전 Planner DB의 백업 상태와 현재 정상 동작을 확인한다.
+2. **SQL Editor**에서 [`supabase/migrations/20260920000000_initial.sql`](../supabase/migrations/20260920000000_initial.sql)을 열어 전체 내용을 실행한다. 이 migration은 `portfolio_passkey` 스키마 밖의 객체를 변경하지 않는다.
+3. 스키마 선택 목록에서 `portfolio_passkey`를 열어 `accounts`, `private_items`, `passkeys`, `ceremonies`, `sessions` 다섯 테이블을 확인한다.
+4. 다섯 테이블의 RLS가 활성화됐는지 확인한다. 브라우저용 `anon`/`authenticated` 정책은 만들지 않는다.
+5. 비밀번호 관리자에서 포트폴리오 전용 DB 비밀번호를 새로 만든다. SQL Editor의 새 임시 쿼리에서 아래 명령의 자리표시자만 바꾸어 한 번 실행한 뒤 쿼리 내용을 지운다. Planner가 사용하는 DB 비밀번호와 달라야 한다.
 
    ```sql
-   alter role portfolio_app with login password '서비스 전용 비밀번호';
+   alter role portfolio_passkey_app with login password '포트폴리오 전용 비밀번호';
    ```
 
-7. 프로젝트 상단 **Connect**에서 **Transaction pooler** URI를 확인한다. 사용자 이름을 `portfolio_app.[PROJECT-REF]`로 바꾸고 비밀번호 자리에 서비스 전용 비밀번호를 넣는다. 비밀번호의 예약 문자는 URL 인코딩해야 한다. Supabase는 외부 서비스마다 별도 DB 사용자를 만들 것을 권장한다. [Supabase 역할 문서](https://supabase.com/docs/guides/database/postgres/roles)
+6. 프로젝트 상단 **Connect**에서 **Transaction pooler** URI를 확인한다. 사용자 이름을 `portfolio_passkey_app.[PROJECT-REF]`로 바꾸고 비밀번호 자리에 포트폴리오 전용 비밀번호를 넣는다. 비밀번호의 예약 문자는 URL 인코딩해야 한다. [Supabase 역할 문서](https://supabase.com/docs/guides/database/postgres/roles)
 
 복구: migration 실행이 중간에 실패하면 트랜잭션이 전체 변경을 되돌린다. 오류 내용을 확인해 migration을 수정한 뒤 다시 실행한다. 운영 데이터가 생긴 뒤에는 테이블을 삭제하지 말고 새 순방향 migration으로 고친다.
 
@@ -76,7 +75,7 @@ Vercel 대시보드의 **Project → Settings → Environment Variables**에서 
 
 | 변수 | Production 값 | 비밀 여부 |
 |---|---|---|
-| `DATABASE_URL` | `portfolio_app`용 Supabase Transaction pooler URI | 비밀 |
+| `DATABASE_URL` | `portfolio_passkey_app`용 Supabase Transaction pooler URI | 비밀 |
 | `APP_ORIGIN` | `https://portfoliovercel-beta-three.vercel.app` | 공개 설정 |
 | `RP_ID` | `portfoliovercel-beta-three.vercel.app` | 공개 설정 |
 | `RP_NAME` | 패스키 창에 표시할 이름 | 공개 설정 |
@@ -113,10 +112,20 @@ pwsh ./scripts/pre-deploy.ps1
 
 - 앱 롤백: Vercel Deployments에서 직전 정상 Production 배포를 Rollback한다.
 - DB 변경: 기존 migration을 고치지 않고 번호가 증가하는 migration을 추가한다.
-- 연결 비밀 노출: SQL Editor에서 `portfolio_app`의 비밀번호를 새 값으로 바꾸고 Vercel `DATABASE_URL`을 갱신한 뒤 재배포한다.
+- 연결 비밀 노출: SQL Editor에서 `portfolio_passkey_app`의 비밀번호를 새 값으로 바꾸고 Vercel `DATABASE_URL`을 갱신한 뒤 재배포한다.
 - 등록 코드 노출: 새 코드를 생성해 해당 해시 환경변수를 교체하고 재배포한다. 이미 첫 패스키가 등록된 계정에는 기존·신규 코드 모두 사용할 수 없다.
 - 패스키 분실: 등록된 다른 패스키로 로그인한다. 두 패스키를 모두 잃으면 비밀번호 복구가 없으므로 애플리케이션 UI만으로 복구할 수 없다.
 - 도메인 변경: 기존 도메인이 살아 있을 때 새 도메인용 배포에서 패스키를 다시 등록한 후 전환한다.
+- Planner 정식 통합: 최종 Planner origin과 RP ID로 서버 설정을 바꾸고, 그 주소에서 패스키 두 개를 새로 등록한 뒤 삭제·복구 시험을 다시 수행한다. 현재 Vercel RP의 패스키는 재사용할 수 없다.
+- 임시 연결 전체 제거: 필요한 자료를 백업하고 Vercel 연결을 끊은 뒤에만 `supabase/rollback/remove_portfolio_passkey.sql`을 실행한다.
+
+## 추후 Planner 통합 방식
+
+1. **Planner와 같은 origin의 하위 경로로 통합 — 추천:** 예: `https://planner.example.com/profile`. origin과 세션 경계가 가장 단순하다.
+2. Planner의 별도 하위 도메인: 공용 상위 RP ID를 쓸지는 최종 사용자 범위와 쿠키 경계를 검토해 결정한다.
+3. 현재 Vercel 페이지를 iframe으로 삽입: 현재 보안 헤더가 frame 삽입을 차단하며 인증 경계도 분리되므로 사용하지 않는다.
+
+현재 과제에서는 1번이나 2번을 미리 구현하지 않는다. 최종 Planner 주소가 확정된 뒤 새 소개 페이지 구조와 함께 적용한다.
 
 ## 배포 시 사용자에게 다시 요청할 항목
 

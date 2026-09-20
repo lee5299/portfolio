@@ -39,6 +39,13 @@
 ## Delivery
 
 - **Technology stack:** Node.js 22+, Express 5, SimpleWebAuthn 14, Vanilla JS, Supabase PostgreSQL
-- **Deployment target:** `portfoliovercel-beta-three.vercel.app` on Vercel Functions + Supabase Transaction pooler
+- **Deployment target:** `portfoliovercel-beta-three.vercel.app` on Vercel Functions + Planner의 Supabase PostgreSQL을 임시 공유
 - **Rollback approach:** Vercel의 직전 정상 배포로 되돌린다. 데이터베이스 변경은 앞으로 추가할 순방향 보정 migration으로 복구하며 운영 데이터가 있는 테이블을 임의로 삭제하지 않는다.
 - **Test command:** See `config/automation.json`.
+
+## Lifecycle
+
+1. 현재 과제에서는 Vercel 소개 페이지가 Planner Supabase의 격리 스키마를 임시 사용한다.
+2. 새 자기소개 페이지의 기능과 디자인을 완성한다.
+3. 완성본을 Planner의 최종 origin에 통합하고 그 origin/RP ID에서 패스키를 새로 등록한다.
+4. 전환 검증 뒤 과제용 패스키·세션·challenge를 정리한다.

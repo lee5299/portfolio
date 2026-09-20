@@ -49,6 +49,20 @@
 - **Alternatives considered:** 요청 호스트를 RP ID와 origin으로 자동 신뢰하는 방식.
 - **Consequences:** 임의 Host 헤더나 Preview URL을 신뢰하는 위험을 피한다. 운영 도메인을 나중에 변경하면 새 도메인에서 패스키를 다시 등록해야 한다.
 
+## 2026-09-20 — Planner Supabase 프로젝트를 임시 공유
+
+- **Context:** 별도 Supabase 프로젝트를 바로 만들지 않고 기존 Planner 프로젝트의 DB 자리를 임시로 사용한다.
+- **Decision:** `portfolio_passkey` 전용 스키마와 `portfolio_passkey_app` 전용 로그인 역할을 사용한다. 모든 SQL은 스키마를 명시하고 Planner의 기존 스키마·테이블·역할·API 키를 변경하지 않는다.
+- **Alternatives considered:** 포트폴리오 전용 Supabase 프로젝트, Planner의 `public` 스키마에 접두사 테이블 생성.
+- **Consequences:** 이름과 권한 충돌을 줄이고 나중에 스키마 단위로 제거하거나 Planner에 정식 편입할 수 있다. 연결 한도, 저장 용량, 백업과 장애 범위는 Planner와 공유하므로 과제 단계에서는 가상 데이터만 사용한다.
+
+## 2026-09-20 — 과제용 패스키는 Planner 통합 때 재등록
+
+- **Context:** 현재 Vercel origin과 추후 Planner origin은 다르며 WebAuthn credential은 RP ID에 묶인다.
+- **Decision:** 현재 도메인에서 등록한 패스키는 과제 검증용으로만 사용한다. 새 소개 페이지를 Planner에 통합할 때 최종 Planner origin과 RP ID를 설정하고 패스키 두 개를 새로 등록한다.
+- **Alternatives considered:** 현재 패스키를 다른 도메인으로 이전, `vercel.app`을 공용 상위 RP ID로 사용.
+- **Consequences:** 현재 credential을 최종 서비스로 가져갈 수 없지만 도메인 경계를 올바르게 유지한다. 전환 후 임시 passkey·session·ceremony 레코드를 삭제해야 한다.
+
 ## 2026-09-20 — 패스키 런타임 정보는 Git에서 제외
 
 - **Context:** 공개키 자체는 비밀키가 아니지만 credential ID, counter, transport, 계정 연결 정보와 함께 실제 인증 시스템의 운영 데이터다.

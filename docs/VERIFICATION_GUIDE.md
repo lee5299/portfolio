@@ -54,3 +54,10 @@
 - credential ID와 공개키: 앞뒤 일부만 보이거나 `[MASKED]`
 - 실제 기기 이름, 계정 이름과 운영 경로에 개인정보가 있으면 가상 이름으로 교체
 - 정제 전 파일은 `evidence/raw/`에만 두고 제출 전에 삭제
+
+## Planner 통합 시 재검증
+
+- 현재 Vercel origin에서 만든 패스키를 최종 Planner origin에서 재사용하지 않는다.
+- 최종 origin/RP ID에서 패스키 두 개를 새로 등록한다.
+- 공개·비공개 경계, challenge 재사용, 교차 계정 접근, 하나 삭제 후 로그인과 마지막 삭제 차단을 전부 다시 확인한다.
+- 전환 완료 뒤 과제용 passkey, session과 ceremony 레코드를 정리한다.
