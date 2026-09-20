@@ -19,7 +19,7 @@
 - **로그아웃:** `server/app.js`의 `/api/logout`과 `server/postgres-state.js`의 세션 폐기
 - **비공개 조회:** `server/app.js`의 `/api/private-items`, `/api/accounts/:accountId/private-items`
 - **패스키 관리:** `server/app.js`의 `/api/passkeys` GET·DELETE
-- **운영 저장:** `server/postgres-store.js`, `server/postgres-state.js`, `supabase/migrations/001_initial.sql`
+- **운영 저장:** `server/postgres-store.js`, `server/postgres-state.js`, `supabase/migrations/20260920000000_initial.sql`
 - **로컬 시험 저장:** `server/store.js`, `server/ephemeral-state.js`
 - **브라우저 흐름:** `client/app.js`
 - **공개·비공개 화면:** `public/index.html`, `public/style.css`

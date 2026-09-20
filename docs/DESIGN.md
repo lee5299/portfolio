@@ -26,7 +26,7 @@
 
 ### Database persistence rules
 
-- `supabase/migrations/001_initial.sql`에는 테이블·인덱스·가상 초기 데이터만 둔다. 실제 credential ID, 공개키, counter, 세션, challenge와 연결 비밀은 Git에 넣지 않는다.
+- `supabase/migrations/20260920000000_initial.sql`에는 테이블·인덱스·가상 초기 데이터만 둔다. 실제 credential ID, 공개키, counter, 세션, challenge와 연결 비밀은 Git에 넣지 않는다.
 - 모든 테이블에 RLS를 켜고 `anon`, `authenticated`, `service_role` 역할 권한을 제거한다. 현재 애플리케이션은 Supabase Data API를 사용하지 않는다. Vercel은 다섯 테이블에만 권한이 있는 `portfolio_app` 역할로 연결한다.
 - Vercel에서는 Supabase Transaction pooler 연결 문자열, 연결 수 1, prepared statement 비활성화와 SSL 필수를 사용한다.
 - 최초 패스키 등록과 마지막 패스키 삭제는 계정 행을 `SELECT ... FOR UPDATE`로 잠그는 트랜잭션에서 직렬화한다.

@@ -25,7 +25,7 @@ export class PostgresStore {
     try {
       await this.sql`select 1 from portfolio_accounts limit 1`;
     } catch (error) {
-      throw new Error('Supabase 스키마가 없습니다. supabase/migrations/001_initial.sql을 먼저 적용하세요.', { cause: error });
+      throw new Error('Supabase 스키마가 없습니다. supabase/migrations/20260920000000_initial.sql을 먼저 적용하세요.', { cause: error });
     }
   }
 

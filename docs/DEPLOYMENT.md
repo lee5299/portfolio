@@ -42,7 +42,7 @@ Supabase 환경변수와 migration을 준비하기 전에는 기능 브랜치를
 
 1. 새 프로젝트를 만들고 Vercel 실행 지역과 가까운 지역을 고른다.
 2. 데이터베이스 비밀번호는 비밀번호 관리자에 저장한다. 채팅, 소스 파일 또는 문서에 붙여 넣지 않는다.
-3. **SQL Editor**에서 [`supabase/migrations/001_initial.sql`](../supabase/migrations/001_initial.sql)을 열어 전체 내용을 실행한다.
+3. **SQL Editor**에서 [`supabase/migrations/20260920000000_initial.sql`](../supabase/migrations/20260920000000_initial.sql)을 열어 전체 내용을 실행한다.
 4. **Table Editor**에서 다음 다섯 테이블이 생겼는지 확인한다: `portfolio_accounts`, `portfolio_private_items`, `portfolio_passkeys`, `portfolio_ceremonies`, `portfolio_sessions`.
 5. 각 테이블의 RLS가 활성화됐는지 확인한다. 브라우저용 `anon`/`authenticated` 정책은 만들지 않는다.
 6. 비밀번호 관리자에서 이 서비스 전용 DB 비밀번호를 새로 만든다. SQL Editor의 새 임시 쿼리에서 아래 명령의 자리표시자만 바꾸어 한 번 실행한 뒤 쿼리 내용을 지운다. 이 값은 프로젝트 DB 관리자 비밀번호와 달라야 한다.

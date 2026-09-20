@@ -6,7 +6,7 @@ if ([string]::IsNullOrWhiteSpace($ProjectPath)) { $ProjectPath = Split-Path -Par
 $requiredPaths = @(
     'AGENTS.md', 'README.md', 'PROJECT.md', '.env.example', '.gitignore', '.vercelignore', 'server.js',
     'docs/PRD.md', 'docs/DESIGN.md', 'docs/DECISIONS.md', 'docs/CURRENT_STATE.md', 'docs/DEPLOYMENT.md',
-    'supabase/migrations/001_initial.sql',
+    'supabase/migrations/20260920000000_initial.sql',
     'checklists/development.md', 'checklists/testing.md', 'checklists/release.md', 'checklists/security-baseline.md',
     'config/automation.json'
 )
