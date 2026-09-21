@@ -83,3 +83,10 @@
 - **Decision:** 로컬 스크립트가 무작위 DB 비밀번호와 PostgreSQL SCRAM-SHA-256 검증값을 함께 만든다. 사용자는 원문을 비밀번호 관리자와 Vercel에만 저장하고 SQL Editor에는 검증값이 포함된 명령만 실행한다.
 - **Alternatives considered:** SQL Editor에 평문 입력, PostgreSQL 클라이언트를 별도로 설치해 `\\password` 실행.
 - **Consequences:** 추가 프로그램 설치 없이 평문을 SQL 기록에서 제외할 수 있다. SCRAM 검증값도 인증 자료이므로 Git에 커밋하거나 장기 보관하지 않는다.
+
+## 2026-09-21 — Vercel Express preset을 저장소에서 고정
+
+- **Context:** 기존 정적 Vercel 프로젝트에 새 저장소를 연결하자 `public/index.html`이 API 경로까지 fallback으로 응답하고 Express 진입점이 Function으로 감지되지 않았다.
+- **Decision:** 루트 `vercel.json`에서 framework를 `express`로 명시한다. `server.js`의 기본 export가 전체 API와 공개 페이지 요청을 처리한다.
+- **Alternatives considered:** Vercel 대시보드에서만 Framework Preset 변경, `/api` 아래에 개별 Functions 작성.
+- **Consequences:** 배포 설정이 저장소에 기록되어 새 프로젝트나 재연결에서도 동일하게 재현된다. 정적 자산은 계속 `public/`에서 제공된다.

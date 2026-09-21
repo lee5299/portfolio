@@ -4,7 +4,7 @@ param([string]$ProjectPath)
 if ([string]::IsNullOrWhiteSpace($ProjectPath)) { $ProjectPath = Split-Path -Parent $PSScriptRoot }
 
 $requiredPaths = @(
-    'AGENTS.md', 'README.md', 'PROJECT.md', '.env.example', '.gitignore', '.vercelignore', 'server.js',
+    'AGENTS.md', 'README.md', 'PROJECT.md', '.env.example', '.gitignore', '.vercelignore', 'vercel.json', 'server.js',
     'scripts/generate-db-credentials.mjs',
     'docs/PRD.md', 'docs/DESIGN.md', 'docs/DECISIONS.md', 'docs/CURRENT_STATE.md', 'docs/DEPLOYMENT.md',
     'supabase/migrations/20260920000000_initial.sql', 'supabase/checks/preflight_planner.sql',
@@ -30,6 +30,16 @@ if ((Test-Path -LiteralPath $projectBrief) -and (Select-String -LiteralPath $pro
 $configPath = Join-Path $ProjectPath 'config/automation.json'
 if (Test-Path -LiteralPath $configPath) {
     try { $null = Get-Content -Raw -LiteralPath $configPath | ConvertFrom-Json } catch { $failures.Add("Invalid automation.json: $($_.Exception.Message)") }
+}
+
+$vercelConfigPath = Join-Path $ProjectPath 'vercel.json'
+if (Test-Path -LiteralPath $vercelConfigPath) {
+    try {
+        $vercelConfig = Get-Content -Raw -LiteralPath $vercelConfigPath | ConvertFrom-Json
+        if ($vercelConfig.framework -ne 'express') { $failures.Add('vercel.json must select the Express framework preset.') }
+    } catch {
+        $failures.Add("Invalid vercel.json: $($_.Exception.Message)")
+    }
 }
 
 if (Get-Command git -ErrorAction SilentlyContinue) {

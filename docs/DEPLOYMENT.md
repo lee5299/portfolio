@@ -92,7 +92,7 @@ Supabase `anon` 키, publishable 키와 service-role 키는 이 애플리케이�
 pwsh ./scripts/pre-deploy.ps1
 ```
 
-검사가 통과한 뒤 선택한 Git 공급자에서 Vercel로 저장소를 Import하거나 Vercel CLI로 배포한다. Express 앱 진입점은 루트의 `server.js`이며 Vercel에서는 하나의 Function으로 실행된다. [Vercel Express 문서](https://vercel.com/docs/frameworks/backend/express)
+검사가 통과한 뒤 선택한 Git 공급자에서 Vercel로 저장소를 Import하거나 Vercel CLI로 배포한다. `vercel.json`이 Express framework preset을 명시하고, 앱 진입점은 루트의 `server.js`이다. Vercel에서는 하나의 Function으로 실행된다. 기존 정적 프로젝트에 저장소를 다시 연결할 때도 이 설정이 `public/`의 정적 fallback보다 Express 라우팅을 우선하도록 한다. [Vercel Express 문서](https://vercel.com/docs/frameworks/backend/express)
 
 첫 배포 후 다음을 순서대로 확인한다.
 
