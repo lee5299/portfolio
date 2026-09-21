@@ -42,6 +42,12 @@ if (Test-Path -LiteralPath $vercelConfigPath) {
     }
 }
 
+$vercelEntrypointPath = Join-Path $ProjectPath 'server.js'
+if ((Test-Path -LiteralPath $vercelEntrypointPath) -and
+    -not (Select-String -LiteralPath $vercelEntrypointPath -SimpleMatch "from 'express'" -Quiet)) {
+    $failures.Add('server.js must import Express directly so Vercel can detect the function entrypoint.')
+}
+
 if (Get-Command git -ErrorAction SilentlyContinue) {
     $insideWorkTree = git -C $ProjectPath rev-parse --is-inside-work-tree 2>$null
     if ($LASTEXITCODE -eq 0 -and $insideWorkTree -eq 'true') {
