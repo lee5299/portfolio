@@ -26,25 +26,32 @@
 - Vercel Production에 `DATABASE_URL`, 고정 origin/RP 설정과 두 최초 등록 코드의 해시를 준비했다. 원문 비밀값은 Git과 문서에 기록하지 않았다.
 - `scripts/pre-deploy.ps1`의 프로젝트 검증, 테스트 10개와 빌드가 통과했다.
 - 환경변수가 일부만 있던 시점의 기존 `main` 재배포는 정적 페이지를 그대로 배포했으며, 확인 결과 공개 페이지는 `200`, 아직 없는 `/api/health`는 `404`였다.
+- GitHub `main`과 Vercel Git 연결을 바로잡고 Express preset과 직접 진입점을 추가해 Production 배포를 완료했다.
+- Production에서 공개 페이지와 health `200`, 비인증 비공개 API `401`, 보안 헤더와 공개 응답의 비공개 문구 부재를 확인했다.
+- Supabase 전용 역할로 Transaction pooler 연결을 확인했고, `accounts` 권한을 넓히지 않도록 패스키 변경 동시성 잠금을 transaction advisory lock으로 수정했다.
+- 자동 시험 12개와 배포 전 검사가 통과했다.
+- 실제 owner 패스키 두 개와 peer 패스키를 등록했다. owner의 하나 삭제, 삭제 키 거절, 남은 키 로그인, 마지막 삭제 차단과 재등록을 확인했다.
+- owner↔peer 실제 교차 접근이 양방향 모두 `403 ACCOUNT_SCOPE_REJECTED`로 거절됐다.
+- 운영에서 서로 다른 로그인 challenge, 미등록 credential `401`, ceremony 재사용 `400`을 확인했다.
 
 ## In progress
 
-- 실제 기기에서 패스키 두 개를 등록하고 체크리스트용 요청·응답 및 화면 증거를 수집해야 한다.
-- 기능 브랜치를 `main`에 반영해 Production 배포한 뒤 실제 기기 검증을 수행해야 한다.
+- 공개키 저장·credential 수·비공개 항목 수를 값 노출 없는 SQL로 확인해야 한다.
+- 등록 취소와 실제 assertion 재전송 증거를 보완하고 제출 스크린샷에서 비밀값을 최종 점검해야 한다.
 
 ## Next
 
-1. 기능 브랜치를 `main`으로 병합해 Production에 배포한다.
-2. `/api/health`, 공개 페이지와 비인증 `401`을 확인한다.
-3. `docs/VERIFICATION_GUIDE.md`에 따라 실제 패스키 두 개와 비교 계정 패스키를 등록한다.
-4. 실제 등록·로그인·삭제 흐름의 정제된 증거를 수집한다.
-5. Planner 기존 앱의 정상 동작과 공유 DB 영향이 없는지 확인한다.
+1. `supabase/checks/evidence_summary.sql`을 실행해 값 없는 DB 증거를 저장한다.
+2. 패스키 추가를 취소한 뒤 credential 건수가 유지되는지 확인한다.
+3. 실제 assertion 재전송 거절 증거를 보완한다.
+4. Planner 기존 앱의 정상 동작과 공유 DB 영향이 없는지 확인한다.
+5. 제출 스크린샷과 문서의 개인정보·비밀값을 최종 점검한다.
 
 ## Known risks and open questions
 
 - 운영 origin과 RP ID는 현재 Vercel Production 주소로 확정했다. 나중에 Planner 주소로 통합하면 새 RP에서 패스키를 다시 등록해야 한다.
 - 동기화형 패스키 두 개가 실질적으로 독립된 복구 수단인지 확인해야 한다.
-- 실제 Supabase 연결 통합 시험은 기능 브랜치가 아직 Production에 배포되지 않아 수행하지 못했다.
+- 실제 Supabase 연결과 패스키 핵심 흐름은 검증했지만 Planner 기존 앱의 회귀 확인은 사용자가 별도로 해야 한다.
 - Planner와 과제용 포트폴리오는 DB 연결 수·용량·장애 영향을 공유한다. 과제 종료 후 Planner 통합 구조가 확정되면 임시 연결과 데이터를 정리해야 한다.
 - 비밀번호나 별도 복구 수단이 없으므로 등록한 모든 기기·보안키를 실제로 분실하면 계정 복구가 불가능하다.
 - 자동 시험은 실제 인증기 서명을 생성하지 않는다. 실제 장치 등록·서명과 삭제한 패스키 실패는 수동 검증이 필요하다.

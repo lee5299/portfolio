@@ -9,6 +9,7 @@ $requiredPaths = @(
     'docs/PRD.md', 'docs/DESIGN.md', 'docs/DECISIONS.md', 'docs/CURRENT_STATE.md', 'docs/DEPLOYMENT.md',
     'supabase/migrations/20260920000000_initial.sql', 'supabase/checks/preflight_planner.sql',
     'supabase/checks/postflight_planner.sql', 'supabase/checks/connection_role_planner.sql',
+    'supabase/checks/evidence_summary.sql',
     'supabase/rollback/remove_portfolio_passkey.sql',
     'checklists/development.md', 'checklists/testing.md', 'checklists/release.md', 'checklists/security-baseline.md',
     'config/automation.json'

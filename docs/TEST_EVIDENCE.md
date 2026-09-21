@@ -50,11 +50,32 @@ HTTP/1.1 409 Conflict
 - 최초 등록 폼에는 가상 계정, 패스키 이름과 일회용 등록 코드만 있고 비밀번호 입력란이 없다.
 - 390px 모바일 화면에서 가로 넘침 없이 잠긴 영역이 표시된다.
 
-## Pending real-device evidence
+## Production verification — 2026-09-21
 
-- [ ] 실제 등록 성공과 저장된 공개키의 마스킹 예시
-- [ ] 실제 로그인 성공과 변조·다른 패스키 실패
+- 결과물: `https://portfoliovercel-beta-three.vercel.app/`
+- 소스: `https://github.com/lee5299/portfolio`
+- 배포 기준 커밋: `562cb3c`
+- 공개 페이지와 `/api/health`가 각각 `200`을 반환했다.
+- 비인증 `/api/private-items`가 `401 AUTH_REQUIRED`를 반환했다.
+- 공개 HTML과 JavaScript 번들에서 두 계정의 비공개 항목 고유 문구가 발견되지 않았다.
+- CSP, `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`를 확인했다.
+- 연속 로그인 challenge의 SHA-256 축약값은 `ff06daa924b1`, `aa2127fb9766`으로 달랐다. challenge 원문은 기록하지 않았다.
+- 가상 미등록 credential 요청은 `401 UNKNOWN_PASSKEY`, 같은 ceremony 재사용은 `400 CEREMONY_REJECTED`였다.
+- 실제 기기에서 owner 주 패스키와 독립 백업 패스키를 등록했다.
+- 백업 패스키 로그인, 주 패스키 삭제, 삭제한 패스키 로그인 거절, 백업 패스키 재로그인과 마지막 패스키 삭제 차단을 순서대로 확인했다.
+- 마지막 삭제 차단 뒤 owner 주 패스키를 다시 추가해 owner credential 두 개 상태를 복원했다.
+- 별도 peer 패스키를 등록했고 owner→peer, peer→owner 요청이 모두 `403 ACCOUNT_SCOPE_REJECTED`였다.
+- 최초 실패 화면에 노출된 owner setup code는 폐기하고 새 코드와 해시로 교체했다. 해당 화면은 제출 증거에서 제외한다.
+
+공개키 저장과 계정별 현재 건수는 [`../supabase/checks/evidence_summary.sql`](../supabase/checks/evidence_summary.sql)로 실제 값을 노출하지 않고 확인한다.
+
+## Pending evidence
+
+- [x] 실제 등록과 로그인 성공
+- [x] 패스키 두 개 등록, 하나 삭제 후 남은 패스키 성공과 삭제한 패스키 실패
+- [x] 마지막 패스키 삭제 차단
+- [x] owner↔peer 실제 교차 접근 거절
+- [ ] 저장된 공개키와 계정별 건수의 안전한 요약 쿼리 결과
+- [ ] 등록 창 취소 전후 credential 건수 유지
 - [ ] 사용한 assertion 재전송 거절
-- [ ] 패스키 두 개 등록 화면
-- [ ] 한 개 삭제 후 남은 패스키 성공과 삭제한 패스키 실패
-- [ ] Supabase Transaction pooler를 통한 배포 환경 통합 시험
+- [x] Supabase Transaction pooler를 통한 배포 환경 통합 시험
