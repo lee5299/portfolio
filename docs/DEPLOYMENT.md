@@ -43,7 +43,7 @@ Supabase 환경변수와 migration을 준비하기 전에는 기능 브랜치를
 1. 변경 전 Planner DB의 백업 상태와 현재 정상 동작을 확인한다.
 2. **SQL Editor**에서 [`supabase/checks/preflight_planner.sql`](../supabase/checks/preflight_planner.sql)을 실행한다. 최초 설치라면 결과가 0행이어야 한다. 결과가 나오면 migration을 중단하고 기존 객체의 용도를 먼저 확인한다.
 3. [`supabase/migrations/20260920000000_initial.sql`](../supabase/migrations/20260920000000_initial.sql)을 열어 전체 내용을 실행한다. 이 migration은 `portfolio_passkey` 스키마 밖의 기존 객체를 변경하지 않는다.
-4. [`supabase/checks/postflight_planner.sql`](../supabase/checks/postflight_planner.sql)을 실행한다. 다섯 테이블과 RLS 활성화, `portfolio_passkey_app` 권한만 확인한다.
+4. [`supabase/checks/postflight_planner.sql`](../supabase/checks/postflight_planner.sql)을 실행한다. 한 행으로 반환되는 여섯 검사항목이 모두 `true`인지 확인한다. 테이블 소유자인 `postgres` 권한은 정상이며, 검사는 애플리케이션 역할의 정확한 권한과 `anon`·`authenticated`·`service_role` 차단 여부를 별도로 판정한다.
 5. 스키마 선택 목록에서 `portfolio_passkey`를 열어 `accounts`, `private_items`, `passkeys`, `ceremonies`, `sessions` 다섯 테이블을 확인한다. 브라우저용 `anon`/`authenticated` 정책은 만들지 않는다.
 6. 비밀번호 관리자에서 포트폴리오 전용 DB 비밀번호를 새로 만든다. SQL Editor의 새 임시 쿼리에서 아래 명령의 자리표시자만 바꾸어 한 번 실행한 뒤 쿼리 내용을 지운다. Planner가 사용하는 DB 비밀번호와 달라야 한다.
 
