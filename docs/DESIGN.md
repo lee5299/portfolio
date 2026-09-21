@@ -29,7 +29,7 @@
 - `supabase/migrations/20260920000000_initial.sql`에는 테이블·인덱스·가상 초기 데이터만 둔다. 실제 credential ID, 공개키, counter, 세션, challenge와 연결 비밀은 Git에 넣지 않는다.
 - Planner 프로젝트 안에 Data API에 노출하지 않는 `portfolio_passkey` 전용 스키마를 둔다. 모든 테이블에 RLS를 켜고 `public`, `anon`, `authenticated`, `service_role` 권한을 제거한다. Vercel은 이 스키마의 다섯 테이블에만 권한이 있는 `portfolio_passkey_app` 역할로 연결한다.
 - Vercel에서는 Supabase Transaction pooler 연결 문자열, 연결 수 1, prepared statement 비활성화와 SSL 필수를 사용한다.
-- 최초 패스키 등록과 마지막 패스키 삭제는 계정 행을 `SELECT ... FOR UPDATE`로 잠그는 트랜잭션에서 직렬화한다.
+- 최초 패스키 등록과 마지막 패스키 삭제는 계정 ID를 키로 사용하는 PostgreSQL transaction advisory lock 안에서 직렬화한다. `accounts`에는 SELECT만 허용해 애플리케이션 역할이 계정 행을 변경하지 못하게 한다.
 - ceremony는 조건부 `UPDATE ... RETURNING`으로 한 번만 소비한다. 만료되거나 소비된 행은 다시 반환되지 않는다.
 - 세션과 ceremony의 원문 식별자는 쿠키·응답에만 잠시 존재하며 DB에는 해시만 저장한다. 만료된 상태는 새 상태 생성 시 하루 유예 후 정리한다.
 

@@ -84,7 +84,8 @@ export class PostgresStore {
   async addPasskey(accountId, passkey, { requireEmpty = false } = {}) {
     try {
       return await this.sql.begin(async (transaction) => {
-        const account = await transaction`select id from portfolio_passkey.accounts where id = ${accountId} for update`;
+        await transaction`select pg_advisory_xact_lock(hashtextextended(${accountId}, 0))`;
+        const account = await transaction`select id from portfolio_passkey.accounts where id = ${accountId}`;
         if (!account.length) return 'account-not-found';
         if (requireEmpty) {
           const existing = await transaction`select 1 from portfolio_passkey.passkeys where account_id = ${accountId} limit 1`;
@@ -118,7 +119,8 @@ export class PostgresStore {
 
   async deletePasskey(accountId, credentialId) {
     return this.sql.begin(async (transaction) => {
-      const account = await transaction`select id from portfolio_passkey.accounts where id = ${accountId} for update`;
+      await transaction`select pg_advisory_xact_lock(hashtextextended(${accountId}, 0))`;
+      const account = await transaction`select id from portfolio_passkey.accounts where id = ${accountId}`;
       if (!account.length) return 'account-not-found';
       const existing = await transaction`
         select credential_id from portfolio_passkey.passkeys
