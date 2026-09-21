@@ -16,6 +16,19 @@ function mapPrivateItem(row) {
   return { id: row.id, title: row.title, body: row.body };
 }
 
+function initializationErrorMessage(error) {
+  if (['28P01', '28000'].includes(error?.code)) {
+    return 'Supabase 인증에 실패했습니다. DATABASE_URL의 사용자명과 비밀번호를 확인하세요.';
+  }
+  if (['3F000', '42P01'].includes(error?.code)) {
+    return 'Supabase 스키마가 없습니다. supabase/migrations/20260920000000_initial.sql을 먼저 적용하세요.';
+  }
+  if (error?.code === '42501') {
+    return 'Supabase 역할 권한이 부족합니다. portfolio_passkey_app의 grant 설정을 확인하세요.';
+  }
+  return 'Supabase 연결을 초기화하지 못했습니다. 원인 오류 코드와 DATABASE_URL 설정을 확인하세요.';
+}
+
 export class PostgresStore {
   constructor(sql) {
     this.sql = sql;
@@ -25,7 +38,7 @@ export class PostgresStore {
     try {
       await this.sql`select 1 from portfolio_passkey.accounts limit 1`;
     } catch (error) {
-      throw new Error('Supabase 스키마가 없습니다. supabase/migrations/20260920000000_initial.sql을 먼저 적용하세요.', { cause: error });
+      throw new Error(initializationErrorMessage(error), { cause: error });
     }
   }
 
