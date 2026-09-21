@@ -45,13 +45,10 @@ Supabase 환경변수와 migration을 준비하기 전에는 기능 브랜치를
 3. [`supabase/migrations/20260920000000_initial.sql`](../supabase/migrations/20260920000000_initial.sql)을 열어 전체 내용을 실행한다. 이 migration은 `portfolio_passkey` 스키마 밖의 기존 객체를 변경하지 않는다.
 4. [`supabase/checks/postflight_planner.sql`](../supabase/checks/postflight_planner.sql)을 실행한다. 한 행으로 반환되는 여섯 검사항목이 모두 `true`인지 확인한다. 테이블 소유자인 `postgres` 권한은 정상이며, 검사는 애플리케이션 역할의 정확한 권한과 `anon`·`authenticated`·`service_role` 차단 여부를 별도로 판정한다.
 5. 스키마 선택 목록에서 `portfolio_passkey`를 열어 `accounts`, `private_items`, `passkeys`, `ceremonies`, `sessions` 다섯 테이블을 확인한다. 브라우저용 `anon`/`authenticated` 정책은 만들지 않는다.
-6. 비밀번호 관리자에서 포트폴리오 전용 DB 비밀번호를 새로 만든다. SQL Editor의 새 임시 쿼리에서 아래 명령의 자리표시자만 바꾸어 한 번 실행한 뒤 쿼리 내용을 지운다. Planner가 사용하는 DB 비밀번호와 달라야 한다.
+6. 로컬 Git 작업 폴더에서 `npm run db-credentials`를 실행한다. 출력된 43자리 DB 비밀번호는 비밀번호 관리자에 즉시 저장하고 채팅·파일·SQL Editor에 입력하지 않는다. 함께 출력된 `alter role ...` SQL에는 평문 비밀번호 대신 PostgreSQL SCRAM-SHA-256 검증값만 들어 있다. 그 SQL 한 줄만 SQL Editor의 새 임시 쿼리에서 실행하고 쿼리를 저장하지 않은 채 닫는다. Planner가 사용하는 DB 비밀번호와 달라야 한다. PostgreSQL은 이미 암호화된 SCRAM 검증값을 비밀번호로 지정하면 그대로 저장한다. 평문을 `ALTER ROLE`에 넣으면 SQL 기록이나 서버 로그에 남을 수 있다. [PostgreSQL ALTER ROLE 문서](https://www.postgresql.org/docs/current/sql-alterrole.html)
 
-   ```sql
-   alter role portfolio_passkey_app with login password '포트폴리오 전용 비밀번호';
-   ```
-
-7. 프로젝트 상단 **Connect**에서 **Transaction pooler** URI를 확인한다. 사용자 이름을 `portfolio_passkey_app.[PROJECT-REF]`로 바꾸고 비밀번호 자리에 포트폴리오 전용 비밀번호를 넣는다. 비밀번호의 예약 문자는 URL 인코딩해야 한다. [Supabase 역할 문서](https://supabase.com/docs/guides/database/postgres/roles)
+7. [`supabase/checks/connection_role_planner.sql`](../supabase/checks/connection_role_planner.sql)을 실행해 `role_connection_ready = true`인지 확인한다. 이 검사는 비밀번호 값을 노출하지 않는다.
+8. 프로젝트 상단 **Connect**에서 **Transaction pooler** URI를 확인한다. 사용자 이름을 `portfolio_passkey_app.[PROJECT-REF]`로 바꾸고 비밀번호 자리에 포트폴리오 전용 비밀번호를 넣는다. 비밀번호의 예약 문자는 URL 인코딩해야 한다. [Supabase 역할 문서](https://supabase.com/docs/guides/database/postgres/roles)
 
 복구: migration 실행이 중간에 실패하면 트랜잭션이 전체 변경을 되돌린다. 오류 내용을 확인해 migration을 수정한 뒤 다시 실행한다. 운영 데이터가 생긴 뒤에는 테이블을 삭제하지 말고 새 순방향 migration으로 고친다.
 
@@ -113,7 +110,7 @@ pwsh ./scripts/pre-deploy.ps1
 
 - 앱 롤백: Vercel Deployments에서 직전 정상 Production 배포를 Rollback한다.
 - DB 변경: 기존 migration을 고치지 않고 번호가 증가하는 migration을 추가한다.
-- 연결 비밀 노출: SQL Editor에서 `portfolio_passkey_app`의 비밀번호를 새 값으로 바꾸고 Vercel `DATABASE_URL`을 갱신한 뒤 재배포한다.
+- 연결 비밀 노출: 로컬에서 `npm run db-credentials`로 새 비밀번호와 SCRAM 검증값을 만들고, 출력된 검증값 SQL로 역할 비밀번호를 교체한다. Vercel `DATABASE_URL`도 갱신한 뒤 재배포한다.
 - 등록 코드 노출: 새 코드를 생성해 해당 해시 환경변수를 교체하고 재배포한다. 이미 첫 패스키가 등록된 계정에는 기존·신규 코드 모두 사용할 수 없다.
 - 패스키 분실: 등록된 다른 패스키로 로그인한다. 두 패스키를 모두 잃으면 비밀번호 복구가 없으므로 애플리케이션 UI만으로 복구할 수 없다.
 - 도메인 변경: 기존 도메인이 살아 있을 때 새 도메인용 배포에서 패스키를 다시 등록한 후 전환한다.

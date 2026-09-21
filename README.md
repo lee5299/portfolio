@@ -33,6 +33,7 @@ Vercel + Supabase 설정, 미리 결정해야 할 도메인·Git 연결·Preview
 - `npm test`: 서버 보안 경계와 정책 시험
 - `npm run build`: 브라우저 JavaScript 번들 생성
 - `npm run setup-code`: 운영 최초 등록 코드와 환경변수용 해시 생성
+- `npm run db-credentials`: Supabase 애플리케이션 역할용 비밀번호와 PostgreSQL SCRAM 검증값 생성
 - `npm run start:supabase`: `.env.local`을 이용한 Supabase 연결 실행
 - `pwsh ./scripts/validate-project.ps1`: 문서·설정·Git 제외 항목 검증
 - `pwsh ./scripts/pre-deploy.ps1`: 배포 전 전체 검사

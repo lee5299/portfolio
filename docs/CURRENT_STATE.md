@@ -20,19 +20,21 @@
 - 기존 Production `https://portfoliovercel-beta-three.vercel.app`가 변경 전 정적 페이지를 `200 OK`로 제공하는 것을 확인했다.
 - 새 Supabase 프로젝트 대신 Planner 프로젝트를 임시 공유하기로 했다. Planner와 격리된 `portfolio_passkey` 스키마와 `portfolio_passkey_app` 역할을 사용하도록 migration과 서버 쿼리를 변경했다.
 - 현재 과제용 Vercel 패스키는 임시 자산으로 취급한다. 새 소개 페이지를 Planner origin에 통합할 때 기존 패스키를 이전하지 않고 새 RP ID에서 다시 등록한다.
+- Planner Supabase에 migration을 적용했고 postflight 검사의 여섯 항목이 모두 `true`인 것을 확인했다.
+- DB 역할의 평문 비밀번호가 SQL 기록에 남지 않도록 로컬 SCRAM 검증값 생성 절차를 마련했다.
 
 ## In progress
 
 - 실제 기기에서 패스키 두 개를 등록하고 체크리스트용 요청·응답 및 화면 증거를 수집해야 한다.
-- Supabase와 Vercel 프로젝트를 만들고 운영 도메인 및 RP ID를 확정해야 한다.
+- `portfolio_passkey_app` 로그인 비밀과 Vercel 환경변수를 설정해야 한다.
 
 ## Next
 
-1. `docs/VERIFICATION_GUIDE.md`에 따라 실제 패스키 두 개와 비교 계정 패스키를 등록한다.
-2. 실제 등록·로그인·삭제 흐름의 정제된 증거를 수집한다.
-3. `docs/DEPLOYMENT.md` 순서로 Supabase migration과 Vercel 환경변수를 적용한다.
-4. 기능 브랜치의 Preview 상태를 확인하고 준비가 끝나면 `main`으로 병합한다.
-5. 최종 운영 도메인과 RP ID로 배포한 뒤 같은 실기 검증을 반복한다.
+1. `portfolio_passkey_app`의 SCRAM 검증값을 적용하고 연결 준비 검사를 실행한다.
+2. Vercel Production 환경변수를 설정하고 기능 브랜치의 Preview 상태를 확인한다.
+3. 준비가 끝나면 `main`으로 병합하고 Production에 배포한다.
+4. `docs/VERIFICATION_GUIDE.md`에 따라 실제 패스키 두 개와 비교 계정 패스키를 등록한다.
+5. 실제 등록·로그인·삭제 흐름의 정제된 증거를 수집한다.
 
 ## Known risks and open questions
 

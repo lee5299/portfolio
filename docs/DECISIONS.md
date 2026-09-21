@@ -76,3 +76,10 @@
 - **Decision:** Node.js 22 이상, Express 5, `@simplewebauthn/server`와 `@simplewebauthn/browser` 14를 사용한다. 브라우저 코드는 esbuild로 번들한다.
 - **Alternatives considered:** Python 서버와 WebAuthn 라이브러리, 외부 인증 서비스.
 - **Consequences:** 클라이언트와 서버를 같은 언어로 유지하고 등록·인증 검증을 검증된 라이브러리에 맡긴다. 운영에는 Node.js 함수를 실행하는 Vercel과 공유 상태를 제공하는 Supabase가 필요하다.
+
+## 2026-09-21 — DB 역할 비밀번호는 SCRAM 검증값으로 설정
+
+- **Context:** Supabase SQL Editor에서 평문을 포함한 `ALTER ROLE`을 실행하면 비밀번호가 쿼리 기록이나 서버 로그에 남을 수 있다.
+- **Decision:** 로컬 스크립트가 무작위 DB 비밀번호와 PostgreSQL SCRAM-SHA-256 검증값을 함께 만든다. 사용자는 원문을 비밀번호 관리자와 Vercel에만 저장하고 SQL Editor에는 검증값이 포함된 명령만 실행한다.
+- **Alternatives considered:** SQL Editor에 평문 입력, PostgreSQL 클라이언트를 별도로 설치해 `\\password` 실행.
+- **Consequences:** 추가 프로그램 설치 없이 평문을 SQL 기록에서 제외할 수 있다. SCRAM 검증값도 인증 자료이므로 Git에 커밋하거나 장기 보관하지 않는다.

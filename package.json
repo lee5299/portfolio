@@ -13,7 +13,8 @@
     "dev": "node --watch server/index.js",
     "test": "node --test",
     "validate": "powershell -ExecutionPolicy Bypass -File scripts/validate-project.ps1",
-    "setup-code": "node scripts/hash-setup-code.mjs"
+    "setup-code": "node scripts/hash-setup-code.mjs",
+    "db-credentials": "node scripts/generate-db-credentials.mjs"
   },
   "dependencies": {
     "@simplewebauthn/browser": "^14.0.0",
