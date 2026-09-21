@@ -1,7 +1,7 @@
 # Project brief
 
 - **Name:** 패스키로 보호하는 자기소개 페이지
-- **Status:** Vercel + Supabase implementation complete; service provisioning and real-device verification pending
+- **Status:** Production configuration ready; deployment and real-device verification pending
 - **Owner:** 개인 프로젝트
 - **Repository:** https://github.com/lee5299/portfolio
 - **Production URL:** https://portfoliovercel-beta-three.vercel.app

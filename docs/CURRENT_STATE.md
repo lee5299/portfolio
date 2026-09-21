@@ -22,25 +22,29 @@
 - 현재 과제용 Vercel 패스키는 임시 자산으로 취급한다. 새 소개 페이지를 Planner origin에 통합할 때 기존 패스키를 이전하지 않고 새 RP ID에서 다시 등록한다.
 - Planner Supabase에 migration을 적용했고 postflight 검사의 여섯 항목이 모두 `true`인 것을 확인했다.
 - DB 역할의 평문 비밀번호가 SQL 기록에 남지 않도록 로컬 SCRAM 검증값 생성 절차를 마련했다.
+- `portfolio_passkey_app` 로그인과 최소 권한 검사에서 `role_connection_ready = true`를 확인했다.
+- Vercel Production에 `DATABASE_URL`, 고정 origin/RP 설정과 두 최초 등록 코드의 해시를 준비했다. 원문 비밀값은 Git과 문서에 기록하지 않았다.
+- `scripts/pre-deploy.ps1`의 프로젝트 검증, 테스트 10개와 빌드가 통과했다.
+- 환경변수가 일부만 있던 시점의 기존 `main` 재배포는 정적 페이지를 그대로 배포했으며, 확인 결과 공개 페이지는 `200`, 아직 없는 `/api/health`는 `404`였다.
 
 ## In progress
 
 - 실제 기기에서 패스키 두 개를 등록하고 체크리스트용 요청·응답 및 화면 증거를 수집해야 한다.
-- `portfolio_passkey_app` 로그인 비밀과 Vercel 환경변수를 설정해야 한다.
+- 기능 브랜치를 `main`에 반영해 Production 배포한 뒤 실제 기기 검증을 수행해야 한다.
 
 ## Next
 
-1. `portfolio_passkey_app`의 SCRAM 검증값을 적용하고 연결 준비 검사를 실행한다.
-2. Vercel Production 환경변수를 설정하고 기능 브랜치의 Preview 상태를 확인한다.
-3. 준비가 끝나면 `main`으로 병합하고 Production에 배포한다.
-4. `docs/VERIFICATION_GUIDE.md`에 따라 실제 패스키 두 개와 비교 계정 패스키를 등록한다.
-5. 실제 등록·로그인·삭제 흐름의 정제된 증거를 수집한다.
+1. 기능 브랜치를 `main`으로 병합해 Production에 배포한다.
+2. `/api/health`, 공개 페이지와 비인증 `401`을 확인한다.
+3. `docs/VERIFICATION_GUIDE.md`에 따라 실제 패스키 두 개와 비교 계정 패스키를 등록한다.
+4. 실제 등록·로그인·삭제 흐름의 정제된 증거를 수집한다.
+5. Planner 기존 앱의 정상 동작과 공유 DB 영향이 없는지 확인한다.
 
 ## Known risks and open questions
 
-- 최종 운영 도메인과 운영 RP ID가 아직 정해지지 않았다. 도메인을 바꾸면 기존 패스키를 새 RP에서 다시 등록해야 한다.
+- 운영 origin과 RP ID는 현재 Vercel Production 주소로 확정했다. 나중에 Planner 주소로 통합하면 새 RP에서 패스키를 다시 등록해야 한다.
 - 동기화형 패스키 두 개가 실질적으로 독립된 복구 수단인지 확인해야 한다.
-- 실제 Supabase 연결 통합 시험은 Planner 프로젝트의 비밀 연결 문자열이 아직 Vercel에 설정되지 않아 수행하지 못했다.
+- 실제 Supabase 연결 통합 시험은 기능 브랜치가 아직 Production에 배포되지 않아 수행하지 못했다.
 - Planner와 과제용 포트폴리오는 DB 연결 수·용량·장애 영향을 공유한다. 과제 종료 후 Planner 통합 구조가 확정되면 임시 연결과 데이터를 정리해야 한다.
 - 비밀번호나 별도 복구 수단이 없으므로 등록한 모든 기기·보안키를 실제로 분실하면 계정 복구가 불가능하다.
 - 자동 시험은 실제 인증기 서명을 생성하지 않는다. 실제 장치 등록·서명과 삭제한 패스키 실패는 수동 검증이 필요하다.
