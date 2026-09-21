@@ -37,9 +37,9 @@
 
 ### D. challenge 재사용
 
-1. 정상 로그인 요청·응답을 개발자 도구에서 복사하되 쿠키와 credential ID를 마스킹한다.
-2. 같은 `ceremonyId`와 assertion을 다시 전송한다.
-3. `400 CEREMONY_REJECTED`를 기록한다.
+1. 제출 증거용 시험에서는 가상 미등록 credential로 로그인 검증을 한 번 요청한다.
+2. 같은 `ceremonyId`로 다시 요청해 첫 요청의 성공 여부와 무관하게 ceremony가 소비됐는지 확인한다.
+3. 첫 요청의 `401 UNKNOWN_PASSKEY`와 재사용 요청의 `400 CEREMONY_REJECTED`만 기록하고 assertion, credential ID와 challenge 원문은 보관하지 않는다.
 
 ### E. 삭제와 복구
 

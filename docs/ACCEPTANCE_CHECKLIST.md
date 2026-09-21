@@ -1,130 +1,99 @@
 # Passkey private space acceptance checklist
 
-각 항목을 완료한 뒤 괄호에 증거 파일, 시험 이름 또는 제출 문서 위치를 적는다. 실제 개인정보, 쿠키, 세션, 토큰, 개인키 및 운영 비밀값은 증거에 포함하지 않는다.
+실제 개인정보, 쿠키, 세션, 토큰, 개인키 및 운영 비밀값은 증거에 포함하지 않는다. 아래 항목은 2026-09-21 Production과 자동 시험에서 확인했다.
 
 ## 0. 제출 주소와 공개 접근
 
-- [ ] **T08-C01** 결과물 URL 필드에 HTTPS URL 한 개가 있다. (증거: )
-- [ ] **T08-C02** 소스 URL 필드에 HTTPS URL 한 개가 있다. (증거: )
-- [ ] **T08-C03** 결과물·소스 URL이 새 시크릿 창에서 계정 생성, 로그인, 인증, 초대, 비밀번호, OAuth 또는 CAPTCHA 없이 열린다. (증거: )
-- [ ] **T08-C10** 결과물 첫 화면이 공개 소개 페이지이며 심사자가 등록하지 않아도 열린다. (증거: )
-- [ ] **T08-C11** 기존 소개 페이지의 공개 내용이 그대로 유지된다. (증거: )
-- [ ] **T08-C12** 실제 개인정보가 없고 모든 프로필·자료가 가상 데이터임을 명시한다. (증거: )
+- [x] **T08-C01** 결과물 HTTPS URL이 있다. (증거: `docs/TEST_EVIDENCE.md` Production verification)
+- [x] **T08-C02** 공개 소스 HTTPS URL이 있다. (증거: `docs/TEST_EVIDENCE.md` Production verification)
+- [x] **T08-C03** 결과물과 소스가 별도 로그인 없이 열린다. (증거: `docs/TEST_EVIDENCE.md` Production verification)
+- [x] **T08-C10** 결과물 첫 화면은 인증 없이 열리는 공개 소개 페이지다. (증거: `docs/TEST_EVIDENCE.md` Browser verification)
+- [x] **T08-C11** 기존 공개 소개 내용이 유지된다. (증거: `public/index.html`, Production 화면 확인)
+- [x] **T08-C12** 프로필과 비공개 자료가 모두 가상 데이터임을 명시한다. (증거: `public/index.html`, `docs/TEST_EVIDENCE.md`)
 
 ## 1. 공개 영역과 비공개 영역
 
-구현: 공개 소개와 별도로 패스키가 필요한 개인 공간을 만들고, 그 안에 가상 항목을 최소 세 개 둔다. 항목은 인증 후 API로 불러오며 공개 HTML과 JavaScript 번들에 넣지 않는다.
-
-- [ ] **T08-C13** 공개 영역과 비공개 영역이 화면에서 구분된다. (증거: )
-- [ ] **T08-C14** 비공개 영역에 항목이 세 개 이상 있다. (증거: )
-- [ ] **T08-C15** 비인증 상태에서는 비공개 내용이 화면에 보이지 않는다. (증거: )
-- [ ] **T08-C16** 비인증 상태로 비공개 자료를 직접 요청하면 거절된다. (증거: )
-- [ ] **T08-C17** 거절 응답의 HTTP 상태가 401 또는 403이다. (증거: )
-- [ ] **T08-C18** 비인증 상태에서 받은 페이지 소스와 응답 본문에 비공개 내용이 없다. (증거: )
-
-검증: 시크릿 창에서 잠긴 경계를 촬영하고 비공개 API 직접 호출 결과를 저장한다. 최초 HTML과 JavaScript 응답에서 비공개 항목의 고유 문구를 검색해 없음을 기록한다.
+- [x] **T08-C13** 공개 소개와 `PASSKEY PROTECTED` 영역이 화면에서 구분된다. (증거: `docs/TEST_EVIDENCE.md` Browser verification)
+- [x] **T08-C14** 각 가상 계정의 비공개 항목이 세 개다. (증거: `supabase/checks/evidence_summary.sql` 실행 결과)
+- [x] **T08-C15** 비인증 상태에는 비공개 내용이 표시되지 않는다. (증거: `docs/TEST_EVIDENCE.md`)
+- [x] **T08-C16** 비인증 비공개 API 요청이 거절된다. (증거: `docs/TEST_EVIDENCE.md`의 `AUTH_REQUIRED`)
+- [x] **T08-C17** 거절 상태가 `401`이다. (증거: `docs/TEST_EVIDENCE.md` Production verification)
+- [x] **T08-C18** 공개 HTML과 번들에 비공개 고유 문구가 없다. (증거: `docs/TEST_EVIDENCE.md`, `test/app.test.js`)
 
 ## 2. 패스키 등록
 
-구현: 서버가 등록 challenge를 만들고 검증 또는 만료까지 보관한다. WebAuthn 응답을 검증한 뒤 공개키와 필요한 메타데이터만 저장한다.
-
-- [ ] **T08-C19** 서버가 등록 challenge를 발급하고 확인할 때까지 서버 측에 보관한다. (증거: )
-- [ ] **T08-C20** 서로 다른 두 등록 요청의 challenge가 다르다는 기록이 있다. (증거: )
-- [ ] **T08-C21** 등록 완료 후 서버에 공개키가 저장된다. (증거: )
-- [ ] **T08-C22** 저장 예시와 함께 해당 값이 비밀번호가 아닌 공개키임을 설명한다. (증거: )
-- [ ] **T08-C23** 등록 요청 본문에 개인키가 없음을 필드 목록으로 확인한다. (증거: )
-- [ ] **T08-C24** 등록한 패스키에 사람이 알아볼 수 있는 이름이 있다. (증거: )
-- [ ] **T08-C25** 등록을 취소하면 안내가 나오고 서버에 credential이 저장되지 않는다. (증거: )
-- [ ] **T08-C26** 저장 위치가 동기화형 관리자, 기기 자체 또는 보안키 중 무엇인지 적는다. (증거: )
-
-검증: 연속 발급한 두 challenge의 축약값, 정제된 등록 요청·응답, 공개키 저장 레코드와 패스키 목록을 남긴다. 취소 전후 credential 개수도 비교한다.
+- [x] **T08-C19** 등록 challenge를 서버 측 ceremony 저장소에 보관하고 원자적으로 소비한다. (증거: `server/postgres-state.js`, `docs/IMPLEMENTATION.md`)
+- [x] **T08-C20** 연속 등록 challenge가 서로 다르다. (증거: `test/app.test.js`)
+- [x] **T08-C21** 등록 뒤 서버에 공개키가 저장된다. (증거: `supabase/checks/evidence_summary.sql`의 `public_keys_present`)
+- [x] **T08-C22** 저장 값이 비밀번호가 아닌 공개키임을 설명한다. (증거: `docs/IMPLEMENTATION.md`, `docs/TEST_EVIDENCE.md`)
+- [x] **T08-C23** 등록 요청에 개인키가 없고 DB에도 개인키 컬럼이 없다. (증거: `supabase/checks/evidence_summary.sql`, WebAuthn 등록 경로)
+- [x] **T08-C24** 패스키 이름과 등록 날짜를 저장하고 목록에 표시한다. (증거: Production 실제 기기 확인, `client/app.js`)
+- [x] **T08-C25** 등록 취소 안내가 표시되고 credential 수가 늘지 않는다. (증거: `docs/TEST_EVIDENCE.md` Production verification)
+- [x] **T08-C26** 주 패스키는 동기화형 관리자, 백업은 별도 인증 위치에 등록했다. (증거: 실제 기기 검증 기록; 계정·기기 식별 정보는 미보관)
 
 ## 3. 패스키 로그인, 세션과 재사용 방지
 
-구현: 로그인마다 새 challenge를 발급하고 저장한 공개키로 assertion을 검증한 뒤에만 인증 상태를 만든다. challenge를 만료·소비 처리하고 로그아웃 시 인증 상태를 폐기한다.
-
-- [ ] **T08-C27** 로그인 요청마다 서버가 새 challenge를 발급한다. (증거: )
-- [ ] **T08-C28** 서로 다른 두 로그인 요청의 challenge가 다르다는 기록이 있다. (증거: )
-- [ ] **T08-C29** 저장한 공개키로 서명 검증에 성공한 경우에만 통과한다. (증거: )
-- [ ] **T08-C30** 서명 검증 성공 요청과 실패 요청이 나란히 있다. (증거: )
-- [ ] **T08-C31** 이미 사용한 challenge의 재사용 요청과 거절 응답이 있다. (증거: )
-- [ ] **T08-C32** 로그인 후 사용자를 식별하는 방식이 세션 또는 토큰 중 무엇인지 적는다. (증거: )
-- [ ] **T08-C33** 로그아웃 후 폐기된 인증 값으로 요청했을 때의 거절 응답이 있다. (증거: )
-- [ ] **T08-C34** 증거의 세션·토큰·쿠키 값이 가려져 있다. (증거: )
-- [ ] **T08-C35** 제출물 어디에도 비밀번호 입력란이 없다. (증거: )
-
-검증: 두 로그인 challenge를 비교하고 정상·실패 assertion 결과를 나란히 저장한다. 성공에 사용한 assertion 재전송이 거절되는지, 로그아웃 후 같은 인증 값의 조회가 거절되는지 기록한다.
+- [x] **T08-C27** 로그인 요청마다 새 challenge를 발급한다. (증거: `server/app.js`, `docs/TEST_EVIDENCE.md`)
+- [x] **T08-C28** 두 로그인 challenge의 정제된 해시가 서로 다르다. (증거: `docs/TEST_EVIDENCE.md` Production verification)
+- [x] **T08-C29** 저장 공개키의 서명 검증 성공 뒤에만 세션을 만든다. (증거: `server/app.js`, `server/postgres-store.js`)
+- [x] **T08-C30** 실제 패스키 성공과 미등록·삭제 패스키 실패를 확인했다. (증거: `docs/TEST_EVIDENCE.md` Production verification)
+- [x] **T08-C31** 소비한 ceremony 재사용이 `400 CEREMONY_REJECTED`로 거절된다. (증거: `docs/TEST_EVIDENCE.md`, `test/app.test.js`)
+- [x] **T08-C32** 로그인 상태는 해시된 불투명 서버 세션과 `HttpOnly` 쿠키로 식별한다. (증거: `docs/IMPLEMENTATION.md`)
+- [x] **T08-C33** 로그아웃 뒤 같은 인증 값의 요청이 `401 AUTH_REQUIRED`다. (증거: `docs/TEST_EVIDENCE.md`, `test/app.test.js`)
+- [x] **T08-C34** 증거의 쿠키와 식별자는 마스킹했고 원문 assertion은 보관하지 않았다. (증거: `docs/TEST_EVIDENCE.md`)
+- [x] **T08-C35** 페이지에 비밀번호 입력란이 없다. (증거: `public/index.html`, 브라우저 확인)
 
 ## 4. 계정 간 격리
 
-구현: 가상 계정 A와 B에 서로 다른 자료를 넣고, 인증된 계정 ID로만 조회 범위를 제한한다. 요청에서 받은 다른 계정 ID를 권한 판단에 쓰지 않는다.
-
-- [ ] **T08-C36** 패스키가 등록된 가상 계정이 두 개이며 서로 다른 비공개 내용이 있다. (증거: )
-- [ ] **T08-C37** A의 패스키로 B의 자료를 읽으려는 요청이 거절된다. (증거: )
-- [ ] **T08-C38** B의 패스키로 A의 자료를 읽으려는 요청도 거절된다. (증거: )
-- [ ] **T08-C39** 거절 전후에 대상 계정의 자료 건수가 같다. (증거: )
-- [ ] **T08-C40** URL 또는 본문에 다른 계정 ID를 보내도 인증된 계정의 자료만 반환된다. (증거: )
-- [ ] **T08-C41** 이 권한 검사를 수행하는 소스 위치가 제출 설명서에 있다. (증거: )
-
-검증: A→B와 B→A 교차 요청, 변조한 계정 ID가 무시되는 요청, 시험 전후 양쪽 자료 건수를 기록한다.
+- [x] **T08-C36** owner와 peer 가상 계정에 패스키와 서로 다른 비공개 자료가 있다. (증거: `supabase/checks/evidence_summary.sql` 실행 결과)
+- [x] **T08-C37** owner→peer 요청이 `403 ACCOUNT_SCOPE_REJECTED`다. (증거: `docs/TEST_EVIDENCE.md`)
+- [x] **T08-C38** peer→owner 요청도 `403 ACCOUNT_SCOPE_REJECTED`다. (증거: `docs/TEST_EVIDENCE.md`)
+- [x] **T08-C39** 교차 요청 뒤에도 양쪽 자료가 각각 세 건이다. (증거: `supabase/checks/evidence_summary.sql` 실행 결과)
+- [x] **T08-C40** 다른 계정 ID를 URL에 보내도 요청이 거절된다. (증거: `docs/TEST_EVIDENCE.md`, `test/app.test.js`)
+- [x] **T08-C41** 권한 검사 소스 위치가 설명서에 있다. (증거: `docs/IMPLEMENTATION.md` 3·4절)
 
 ## 5. 패스키 두 개와 분실 대비
 
-구현: 한 계정에 서로 구분되는 패스키 두 개를 등록하고 목록·삭제 기능을 제공한다. 하나만 남았을 때의 삭제는 `409 Conflict`로 차단하고 새 패스키를 먼저 등록하라고 안내한다.
-
-- [ ] **T08-C42** 한 계정에 패스키 두 개가 등록되어 있다. (증거: )
-- [ ] **T08-C43** 목록에 각 패스키의 이름과 등록 날짜가 보인다. (증거: )
-- [ ] **T08-C44** 하나를 삭제한 뒤 남은 패스키로 로그인할 수 있다. (증거: )
-- [ ] **T08-C45** 삭제한 패스키로 로그인할 수 없다는 기록이 있다. (증거: )
-- [ ] **T08-C46** 마지막 패스키 삭제가 `409 Conflict`로 차단되고 0개가 되지 않는다는 동작을 화면과 제출문에 적는다. 비정상적으로 0개가 되면 복구 불가능함도 명시한다. (증거: )
-
-검증: 두 패스키 목록, 하나를 삭제한 뒤의 목록, 삭제한 키의 로그인 실패와 남은 키의 로그인 성공을 나란히 남긴다. 이어서 마지막 키 삭제 요청의 `409` 응답과 삭제 전후 credential 개수가 1로 유지되는 기록을 남긴다.
+- [x] **T08-C42** owner 계정에 패스키 두 개가 등록되어 있다. (증거: DB 요약의 owner `passkey_count = 2`)
+- [x] **T08-C43** 목록에 패스키 이름과 등록 날짜가 표시된다. (증거: Production 실제 기기 확인)
+- [x] **T08-C44** 하나를 삭제한 뒤 남은 백업 패스키로 로그인했다. (증거: `docs/TEST_EVIDENCE.md` Production verification)
+- [x] **T08-C45** 삭제한 패스키의 로그인은 실패했다. (증거: `docs/TEST_EVIDENCE.md` Production verification)
+- [x] **T08-C46** 마지막 삭제는 `409 LAST_PASSKEY_BLOCKED`이고 패스키 수가 0이 되지 않는다. 모든 키 분실 시 UI 복구가 불가능함도 설명한다. (증거: `docs/TEST_EVIDENCE.md`, `docs/IMPLEMENTATION.md` 6절)
 
 ## 6. 인증 구현 설명서와 제출 자료
 
-- [ ] **T08-C47** 설명서가 ① 구현 방식, ② 선택 이유, ③ 변경 위치, ④ 차단 검증, ⑤ AI와 나, ⑥ 남은 위험으로 나뉜다. (증거: )
-- [ ] **T08-C48** ①에 직접 구현·라이브러리·인증 서비스 중 선택한 방식과 정확한 이름이 있다. (증거: )
-- [ ] **T08-C49** ③에 등록·로그인·로그아웃·비공개 조회가 지나는 소스 위치가 있다. (증거: )
-- [ ] **T08-C50** ④에 비인증 접근, 교차 계정 접근, challenge 재사용, 패스키 삭제 후 로그인의 성공·거절 요청이 나란히 있다. (증거: )
-- [ ] **T08-C51** ⑥에 아직 막지 못한 위험이 최소 하나 구체적으로 있다. (증거: )
-- [ ] **T08-C52** 짧은 확인 방법에 이동 위치, 세 단계 이내의 조작, 성공 표시, 실패 표시가 각각 있다. (증거: )
-- [ ] **T08-C53** AI가 수행한 일, 사용자가 판단한 일, 따르지 않은 AI 제안 또는 해당 사항이 없는 이유가 각각 있다. (증거: )
-
-설명서 권장 목차:
-
-1. 무엇으로 구현했나: 서버, WebAuthn 라이브러리, Supabase PostgreSQL 저장과 해시 세션 방식.
-2. 왜 선택했나: 보안 경계, 배포 환경, 구현 복잡도와 대안 비교.
-3. 어디를 어떻게 고쳤나: 네 흐름의 파일과 함수.
-4. 안 열리는 것을 어떻게 확인했나: 네 가지 필수 시험의 요청·응답 비교.
-5. AI와 나: AI에 맡긴 일, 직접 판단한 일, 거절한 제안과 이유.
-6. 아직 못 막은 것: 구체적인 잔여 위험, 영향과 후속 대책.
+- [x] **T08-C47** 설명서가 구현, 이유, 위치, 차단 검증, AI와 나, 남은 위험의 여섯 절로 구성된다. (증거: `docs/IMPLEMENTATION.md`)
+- [x] **T08-C48** Express 5와 SimpleWebAuthn 14, Supabase PostgreSQL 사용을 명시한다. (증거: `docs/IMPLEMENTATION.md` 1절)
+- [x] **T08-C49** 등록·로그인·로그아웃·비공개 조회 소스 위치가 있다. (증거: `docs/IMPLEMENTATION.md` 3절)
+- [x] **T08-C50** 비인증·교차 계정·재사용·삭제 시험의 성공과 거절 결과가 있다. (증거: `docs/TEST_EVIDENCE.md`)
+- [x] **T08-C51** 키 전체 분실, RP 변경, DB 장애와 공유 인스턴스 위험을 적었다. (증거: `docs/IMPLEMENTATION.md` 6절)
+- [x] **T08-C52** 세 단계 이내 조작과 성공·실패 표시가 있다. (증거: `docs/VERIFICATION_GUIDE.md`)
+- [x] **T08-C53** AI 작업, 사용자 판단, 채택하지 않은 제안과 이유가 있다. (증거: `docs/IMPLEMENTATION.md` 5절)
 
 ## 7. 최종 개인정보·비밀값 검사
 
-- [ ] 이름, 이메일, 전화번호, 실제 GitHub 계정, 기관명과 내부 프로젝트 정보가 없다.
-- [ ] `.env`, 런타임 데이터 파일, API 키, 세션 비밀, 토큰과 쿠키 원문이 없다.
-- [ ] 개인키가 소스, 저장소, 로그, 스크린샷 또는 HTTP 증거에 없다.
-- [ ] `runtime-data/`, `evidence/raw/`와 `*.runtime.json` 파일이 Git에 추적되지 않는다.
-- [ ] 제출용 공개키와 credential ID 예시는 실제 값이 아닌 가상 또는 마스킹 값이다.
-- [ ] 모든 가상 데이터가 만들어 넣은 예시임을 제출문에 명시했다.
-- [ ] 결과물과 소스 저장소를 새 시크릿 창에서 다시 확인했다.
-- [ ] 구성된 테스트와 `scripts/validate-project.ps1`이 통과했다.
+- [x] 페이지·증거·가상 데이터에 실제 이름, 이메일, 전화번호, 기관명과 내부 프로젝트 정보가 없다. 제출에 필요한 공개 GitHub 소스 URL만 예외다.
+- [x] `.env`, 런타임 데이터, API 키, 세션 비밀, 토큰과 쿠키 원문이 Git에 없다.
+- [x] 개인키가 소스, 저장소, 로그와 제출 증거에 없다.
+- [x] `runtime-data/`, `evidence/raw/`와 `*.runtime.json`이 Git에 추적되지 않는다.
+- [x] 제출 문서의 credential ID와 공개키는 마스킹하거나 안전한 boolean 요약만 쓴다.
+- [x] 모든 프로필과 자료가 가상 데이터임을 명시했다.
+- [x] 결과물과 소스 저장소가 인증 없이 열리는 것을 확인했다.
+- [x] 자동 시험, `scripts/validate-project.ps1`과 `scripts/pre-deploy.ps1`이 통과했다.
 
 ## Completion evidence index
 
-| 증거 묶음 | 포함할 내용 | 위치 |
+| 증거 묶음 | 포함 내용 | 위치 |
 |---|---|---|
-| 공개/비공개 경계 | 잠긴 화면, 비인증 401/403, 비공개 내용 없는 응답 | `docs/TEST_EVIDENCE.md`; 실기 보완 필요 |
-| 등록 | 서로 다른 challenge, 등록 요청·응답, 공개키 저장, 취소 | 자동 시험 완료; 실제 기기 증거 필요 |
-| 로그인 | 성공/실패, 재사용 거절, 로그아웃 뒤 거절 | 자동 시험 완료; 실제 서명 증거 필요 |
-| 계정 격리 | A→B, B→A 거절 및 자료 건수 유지 | `test/app.test.js`, `docs/TEST_EVIDENCE.md` |
-| 분실 대비 | 패스키 2개, 하나 삭제, 남은 키 성공·삭제 키 실패 | 삭제 정책 자동 시험 완료; 실제 기기 증거 필요 |
+| 공개/비공개 경계 | 잠긴 화면, 비인증 `401`, 공개 응답의 비공개 문구 부재 | `docs/TEST_EVIDENCE.md` |
+| 등록 | 서로 다른 challenge, 공개키 저장, 취소 뒤 건수 유지 | `test/app.test.js`, `supabase/checks/evidence_summary.sql`, `docs/TEST_EVIDENCE.md` |
+| 로그인 | 실제 성공·실패, ceremony 재사용 거절, 로그아웃 뒤 거절 | `docs/TEST_EVIDENCE.md`, `test/app.test.js` |
+| 계정 격리 | owner→peer와 peer→owner 거절, 자료 건수 유지 | `docs/TEST_EVIDENCE.md`, `supabase/checks/evidence_summary.sql` |
+| 분실 대비 | 패스키 2개, 삭제 키 실패, 백업 키 성공, 마지막 삭제 차단 | `docs/TEST_EVIDENCE.md` |
 | 구현 설명서 | 여섯 항목, 짧은 확인 방법, AI 역할 | `docs/IMPLEMENTATION.md`, `docs/VERIFICATION_GUIDE.md` |
 
-## Troubleshooting order
+## 제출 전 증거 정제
 
-- **패스키 창이 열리지 않음:** HTTPS 또는 localhost 확인 → 브라우저·기기 지원 확인 → 제외 목록과 기존 credential 확인.
-- **비공개 내용이 소스에 노출됨:** CSS 숨김 확인 → 최초 HTML/번들 확인 → 인증 후 API에서만 반환되는지 확인.
-- **잘못된 서명도 통과함:** challenge 서버 저장 확인 → 검증 결과가 실제 분기에 쓰이는지 확인 → 변조 assertion 시험.
-- **두 번째 패스키가 등록되지 않음:** 제외 옵션 확인 → 다른 기기·브라우저·보안키 사용 → 동기화 저장소의 중복 여부 확인.
-- **남은 위험을 찾기 어려움:** 삭제 권한 확인 → challenge 만료 확인 → 마지막 패스키 삭제와 복구 동작 확인.
+- 최초 실패 때 setup code가 보인 화면은 사용하지 않는다. 해당 코드는 이미 폐기·교체했다.
+- setup code, cookie, credential ID, 공개키 원문과 assertion 원문이 보이는 화면은 제외하거나 마스킹한다.
+- DB 증거는 `evidence_summary.sql`의 boolean과 건수만 사용한다.

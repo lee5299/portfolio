@@ -65,6 +65,9 @@ HTTP/1.1 409 Conflict
 - 백업 패스키 로그인, 주 패스키 삭제, 삭제한 패스키 로그인 거절, 백업 패스키 재로그인과 마지막 패스키 삭제 차단을 순서대로 확인했다.
 - 마지막 삭제 차단 뒤 owner 주 패스키를 다시 추가해 owner credential 두 개 상태를 복원했다.
 - 별도 peer 패스키를 등록했고 owner→peer, peer→owner 요청이 모두 `403 ACCOUNT_SCOPE_REJECTED`였다.
+- 안전한 DB 요약 결과 owner/peer의 passkey 수는 각각 2/1, 비공개 항목 수는 각각 3/3이었다. 모든 공개키 존재·counter 유효·개인키 컬럼 부재·비밀번호 컬럼 부재가 `true`였다.
+- owner의 패스키 추가 창을 취소하자 “서버에는 아무것도 저장되지 않았다”는 안내가 표시됐고 passkey 수가 2로 유지됐다.
+- 공유 DB 적용 뒤 기존 Planner 화면과 데이터 조회가 정상 작동함을 사용자가 확인했다.
 - 최초 실패 화면에 노출된 owner setup code는 폐기하고 새 코드와 해시로 교체했다. 해당 화면은 제출 증거에서 제외한다.
 
 공개키 저장과 계정별 현재 건수는 [`../supabase/checks/evidence_summary.sql`](../supabase/checks/evidence_summary.sql)로 실제 값을 노출하지 않고 확인한다.
@@ -75,7 +78,7 @@ HTTP/1.1 409 Conflict
 - [x] 패스키 두 개 등록, 하나 삭제 후 남은 패스키 성공과 삭제한 패스키 실패
 - [x] 마지막 패스키 삭제 차단
 - [x] owner↔peer 실제 교차 접근 거절
-- [ ] 저장된 공개키와 계정별 건수의 안전한 요약 쿼리 결과
-- [ ] 등록 창 취소 전후 credential 건수 유지
-- [ ] 사용한 assertion 재전송 거절
+- [x] 저장된 공개키와 계정별 건수의 안전한 요약 쿼리 결과
+- [x] 등록 창 취소 전후 credential 건수 유지
+- [x] 동일 ceremony 재전송 `400 CEREMONY_REJECTED` (assertion 원문은 보관하지 않음)
 - [x] Supabase Transaction pooler를 통한 배포 환경 통합 시험

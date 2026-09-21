@@ -1,7 +1,7 @@
 # Project brief
 
 - **Name:** 패스키로 보호하는 자기소개 페이지
-- **Status:** Production deployed; evidence finalization pending
+- **Status:** Production deployed and verified; submission screenshot selection pending
 - **Owner:** 개인 프로젝트
 - **Repository:** https://github.com/lee5299/portfolio
 - **Production URL:** https://portfoliovercel-beta-three.vercel.app
