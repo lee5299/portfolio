@@ -13,3 +13,13 @@
 - [x] `DATABASE_URL`은 Transaction pooler를 사용하며 Vercel Production 설정에만 저장했다.
 - [x] Owner와 peer setup code 원문은 Git 밖에 저장하고 Vercel에는 해시만 등록했다.
 - [x] Preview에는 Production 인증 환경변수를 넣지 않아 Production 패스키와 DB 연결을 공유하지 않는다.
+
+## 2026-09-25 공개 페이지 시안 갱신
+
+- [x] 사용자가 피드백을 위해 GitHub `main` 반영을 요청했다.
+- [x] 변경 대상은 공개 페이지·클라이언트 동작·설계 문서로 한정했고 인증 서버와 DB 스키마는 변경하지 않았다.
+- [x] `scripts/pre-deploy.ps1`에서 프로젝트 검증, 자동 시험 12개, 클라이언트 빌드가 통과했다.
+- [x] 업로드할 Git 변경 파일에 `.env`, 실제 패스키 자료, 세션, 원문 등록 코드가 포함되지 않았음을 확인했다.
+- [x] 문제가 생기면 Vercel의 이전 정상 Production 배포로 되돌린다.
+
+배포 후에는 공개 첫 화면, 접힌 비공개 영역, 비인증 API 거절, 패스키 로그인과 다시 열기 동작을 확인한다.

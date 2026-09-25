@@ -423,6 +423,11 @@
 
   // client/app.js
   var elements = {
+    privateSection: document.querySelector("#private-space"),
+    privateToggle: document.querySelector("#private-toggle"),
+    privateToggleLabel: document.querySelector("#private-toggle-label"),
+    privateToggleSymbol: document.querySelector("#private-toggle-symbol"),
+    privateContent: document.querySelector("#private-content"),
     authState: document.querySelector("#auth-state"),
     locked: document.querySelector("#locked-panel"),
     unlocked: document.querySelector("#unlocked-panel"),
@@ -441,6 +446,31 @@
     status: document.querySelector("#status-message"),
     toggleProjects: document.querySelector("#toggle-projects-btn")
   };
+  function setPrivateExpanded(expanded) {
+    elements.privateContent.hidden = !expanded;
+    elements.privateSection.classList.toggle("is-expanded", expanded);
+    elements.privateToggle.setAttribute("aria-expanded", String(expanded));
+    elements.privateToggleLabel.textContent = expanded ? "\uB098\uB9CC\uC758 \uC790\uB9AC \uC811\uAE30" : "\uB098\uB9CC\uC758 \uC790\uB9AC \uC5F4\uAE30";
+    elements.privateToggleSymbol.textContent = expanded ? "\u2212" : "+";
+  }
+  async function openPrivateSpace() {
+    if (!elements.privateContent.hidden) return;
+    elements.unlocked.hidden = true;
+    setPrivateExpanded(true);
+    try {
+      await refreshPrivateSpace();
+    } catch (error) {
+      elements.locked.hidden = false;
+      showStatus(error.message, "error");
+    }
+  }
+  elements.privateToggle.addEventListener("click", () => {
+    if (elements.privateContent.hidden) openPrivateSpace();
+    else setPrivateExpanded(false);
+  });
+  document.querySelector(".nav-private").addEventListener("click", () => {
+    openPrivateSpace();
+  });
   async function api(path, options = {}) {
     const response = await fetch(path, {
       ...options,
@@ -496,14 +526,20 @@
     const session = await api("/api/session");
     const authenticated = session.authenticated;
     elements.locked.hidden = authenticated;
-    elements.unlocked.hidden = !authenticated;
+    elements.unlocked.hidden = true;
     elements.authState.textContent = authenticated ? "\uC5F4\uB9BC" : "\uC7A0\uAE40";
     elements.authState.classList.toggle("is-open", authenticated);
-    if (!authenticated) return;
-    elements.accountName.textContent = `${session.account.displayName} (${session.account.alias})`;
+    if (!authenticated) {
+      elements.accountName.textContent = "";
+      elements.privateItems.replaceChildren();
+      elements.passkeyList.replaceChildren();
+      return;
+    }
     const [privateData, passkeyData] = await Promise.all([api("/api/private-items"), api("/api/passkeys")]);
+    elements.accountName.textContent = `${session.account.displayName} (${session.account.alias})`;
     renderItems(privateData.items);
     renderPasskeys(passkeyData.passkeys);
+    elements.unlocked.hidden = false;
   }
   async function finishRegistration(payload) {
     const credential = await startRegistration({ optionsJSON: payload.options });
@@ -588,7 +624,7 @@
     const expanded = elements.toggleProjects.getAttribute("aria-expanded") === "true";
     document.querySelectorAll(".extra-project").forEach((card) => card.classList.toggle("is-visible", !expanded));
     elements.toggleProjects.setAttribute("aria-expanded", String(!expanded));
-    elements.toggleProjects.textContent = expanded ? "\uD504\uB85C\uC81D\uD2B8 \uC804\uCCB4 \uBCF4\uAE30 (+2)" : "\uD504\uB85C\uC81D\uD2B8 \uC811\uAE30";
+    elements.toggleProjects.textContent = expanded ? "\uC0AC\uB840 \uB354 \uBCF4\uAE30 (+2) \u2193" : "\uC0AC\uB840 \uC811\uAE30 \u2191";
   });
   var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if ("IntersectionObserver" in window && !reducedMotion) {

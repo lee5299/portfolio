@@ -1,6 +1,11 @@
 import { startAuthentication, startRegistration } from '@simplewebauthn/browser';
 
 const elements = {
+  privateSection: document.querySelector('#private-space'),
+  privateToggle: document.querySelector('#private-toggle'),
+  privateToggleLabel: document.querySelector('#private-toggle-label'),
+  privateToggleSymbol: document.querySelector('#private-toggle-symbol'),
+  privateContent: document.querySelector('#private-content'),
   authState: document.querySelector('#auth-state'),
   locked: document.querySelector('#locked-panel'),
   unlocked: document.querySelector('#unlocked-panel'),
@@ -19,6 +24,35 @@ const elements = {
   status: document.querySelector('#status-message'),
   toggleProjects: document.querySelector('#toggle-projects-btn'),
 };
+
+function setPrivateExpanded(expanded) {
+  elements.privateContent.hidden = !expanded;
+  elements.privateSection.classList.toggle('is-expanded', expanded);
+  elements.privateToggle.setAttribute('aria-expanded', String(expanded));
+  elements.privateToggleLabel.textContent = expanded ? '나만의 자리 접기' : '나만의 자리 열기';
+  elements.privateToggleSymbol.textContent = expanded ? '−' : '+';
+}
+
+async function openPrivateSpace() {
+  if (!elements.privateContent.hidden) return;
+  elements.unlocked.hidden = true;
+  setPrivateExpanded(true);
+  try {
+    await refreshPrivateSpace();
+  } catch (error) {
+    elements.locked.hidden = false;
+    showStatus(error.message, 'error');
+  }
+}
+
+elements.privateToggle.addEventListener('click', () => {
+  if (elements.privateContent.hidden) openPrivateSpace();
+  else setPrivateExpanded(false);
+});
+
+document.querySelector('.nav-private').addEventListener('click', () => {
+  openPrivateSpace();
+});
 
 async function api(path, options = {}) {
   const response = await fetch(path, {
@@ -80,15 +114,21 @@ async function refreshPrivateSpace() {
   const session = await api('/api/session');
   const authenticated = session.authenticated;
   elements.locked.hidden = authenticated;
-  elements.unlocked.hidden = !authenticated;
+  elements.unlocked.hidden = true;
   elements.authState.textContent = authenticated ? '열림' : '잠김';
   elements.authState.classList.toggle('is-open', authenticated);
-  if (!authenticated) return;
+  if (!authenticated) {
+    elements.accountName.textContent = '';
+    elements.privateItems.replaceChildren();
+    elements.passkeyList.replaceChildren();
+    return;
+  }
 
-  elements.accountName.textContent = `${session.account.displayName} (${session.account.alias})`;
   const [privateData, passkeyData] = await Promise.all([api('/api/private-items'), api('/api/passkeys')]);
+  elements.accountName.textContent = `${session.account.displayName} (${session.account.alias})`;
   renderItems(privateData.items);
   renderPasskeys(passkeyData.passkeys);
+  elements.unlocked.hidden = false;
 }
 
 async function finishRegistration(payload) {
@@ -181,7 +221,7 @@ elements.toggleProjects.addEventListener('click', () => {
   const expanded = elements.toggleProjects.getAttribute('aria-expanded') === 'true';
   document.querySelectorAll('.extra-project').forEach((card) => card.classList.toggle('is-visible', !expanded));
   elements.toggleProjects.setAttribute('aria-expanded', String(!expanded));
-  elements.toggleProjects.textContent = expanded ? '프로젝트 전체 보기 (+2)' : '프로젝트 접기';
+  elements.toggleProjects.textContent = expanded ? '사례 더 보기 (+2) ↓' : '사례 접기 ↑';
 });
 
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

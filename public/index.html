@@ -3,95 +3,119 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="개발·유지보수·인프라 경험을 소개하는 가상 포트폴리오와 패스키 보호 공간입니다.">
-  <title>가상 개발자 포트폴리오</title>
+  <meta name="description" content="함께 배우고 관심을 행동으로 옮기는 사람의 소개와 프로젝트, 패스키 보호 공간입니다.">
+  <title>포트폴리오</title>
   <link rel="stylesheet" href="/style.css">
   <script src="/app.js" defer></script>
 </head>
 <body>
   <header>
     <div class="container nav-container">
-      <h1 class="logo"><a href="#top">Portfolio<span>.</span></a></h1>
+      <a class="logo" href="#top" aria-label="포트폴리오 첫 화면">Portfolio<span>.</span></a>
       <nav aria-label="메인 메뉴">
         <ul>
-          <li><a href="#about">About</a></li>
-          <li><a href="#skills">Skills</a></li>
-          <li><a href="#projects">Projects</a></li>
-          <li><a href="#private-space">Private</a></li>
+          <li><a href="#about">About Me</a></li>
+          <li><a href="#skills">경험과 배움</a></li>
+          <li><a href="#projects">프로젝트</a></li>
+          <li><a class="nav-private" href="#private-space">나만의 자리 <span aria-hidden="true">↗</span></a></li>
         </ul>
       </nav>
     </div>
   </header>
 
   <main id="top">
-    <section class="hero">
-      <div class="container fade-in">
-        <span class="badge">Academic Information &amp; System Maintenance Developer</span>
-        <h2>안녕하세요.<br>안정적인 시스템을 유지하고 관리하는 개발자 <span class="highlight">가상 지원자</span>입니다.</h2>
-        <p>학사정보시스템 개발·유지보수 및 네트워크 대응 경험을 바탕으로 안정적이고 효율적인 시스템 환경을 구축합니다.</p>
-        <p class="demo-notice">이 페이지의 이름과 비공개 자료는 기능 검증을 위해 만든 가상 데이터입니다.</p>
-        <div class="hero-btns">
-          <a href="#projects" class="btn btn-primary">프로젝트 보기</a>
-          <a href="#private-space" class="btn btn-outline">잠긴 공간 보기</a>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container hero-layout fade-in">
+        <div class="hero-copy">
+          <p class="eyebrow hero-eyebrow"><span class="eyebrow-line" aria-hidden="true"></span> DEVELOPMENT · MAINTENANCE · SYSTEMS</p>
+          <h1 id="hero-title">문제를 살피고,<br><span>필요한 것을 만듭니다.</span></h1>
+          <p class="hero-lead">대학 전산실에서 학사정보시스템을 개발·유지보수하고, 업무 절차를 매뉴얼로 정리했습니다. 지금은 개발과 네트워크·보안을 배우며, 직접 만들어 보고 확인하는 경험을 쌓고 있습니다.</p>
+          <div class="hero-btns">
+            <a href="#projects" class="btn btn-primary">프로젝트 살펴보기 <span aria-hidden="true">↗</span></a>
+            <a href="#about" class="text-link">저에 대해 <span aria-hidden="true">↘</span></a>
+          </div>
+          <p class="demo-notice">프로젝트 사례와 비공개 자료에는 기능 검증용 가상 데이터가 포함되어 있습니다.</p>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="hero-art-orbit orbit-one"></div>
+          <div class="hero-art-orbit orbit-two"></div>
+          <div class="hero-art-orbit orbit-three"></div>
+          <span class="orbit-point point-one"></span><span class="orbit-point point-two"></span>
+          <span class="hero-art-core">steady<span>.</span></span>
+          <span class="hero-art-caption">BUILD / CARE / IMPROVE</span>
         </div>
       </div>
+      <div class="container hero-bottom"><span>00 / INTRO</span><a href="#about">SCROLL TO EXPLORE <span aria-hidden="true">↓</span></a></div>
     </section>
 
     <section id="about" class="section">
-      <div class="container fade-in">
-        <h2 class="section-title">About Me</h2>
-        <div class="about-card">
+      <div class="container editorial-grid fade-in">
+        <div class="section-aside"><span class="section-index">01 / ABOUT</span><h2 class="section-title">About Me</h2></div>
+        <div class="about-copy">
           <p class="about-quote">“함께 일하는 사람에게 따뜻함과 신뢰를 주는 동료가 되고자 합니다.”</p>
-          <p class="about-text">배움을 멈추지 않고 주변을 살필 여유를 갖춰, 현장에서 시스템을 사용하는 사람들의 작은 불편도 먼저 찾아 해결하겠습니다.</p>
-          <p class="about-text">가상의 대학 전산 환경에서 학사정보시스템 유지보수와 장애 대응을 경험한 사례를 바탕으로, 수기 검증 절차를 줄이는 사전 시뮬레이션 시스템을 기획·개발한 이야기를 정리했습니다.</p>
-          <p>끊임없이 배우고 마음을 가꾸는 자세로 언제나 안심하고 함께 일할 수 있는 동료가 되겠습니다.</p>
+          <p>평소 인사만 나누던 동료에게 먼저 말을 걸고, 궁금해하는 내용이 있으면 자료를 찾아 나눕니다.</p>
+          <p>작은 관심을 행동으로 옮기고, 배움을 나누며 안심하고 함께 일할 수 있는 사람이 되겠습니다.</p>
         </div>
       </div>
     </section>
 
     <section id="skills" class="section bg-light">
       <div class="container fade-in">
-        <h2 class="section-title">Skills</h2>
-        <div class="skills-grid">
-          <article class="skill-card"><div class="icon" aria-hidden="true">💻</div><h3>Frontend &amp; Web</h3><p>HTML5, CSS3, JavaScript, Responsive Web Design</p></article>
-          <article class="skill-card"><div class="icon" aria-hidden="true">⚙️</div><h3>Backend &amp; Maintenance</h3><p>Java, SQL, Academic Information Systems, Maintenance</p></article>
-          <article class="skill-card"><div class="icon" aria-hidden="true">🌐</div><h3>Network &amp; Infrastructure</h3><p>Sub-switch Troubleshooting, Traffic Monitoring, Line Checks</p></article>
+        <div class="section-heading"><div><span class="section-index">02 / CAPABILITIES</span><h2 class="section-title">경험과 배움<span class="title-dot">.</span></h2></div><p>대학 전산실에서 해온 일과 교육과정에서 배우는 분야를 함께 정리합니다.</p></div>
+        <div class="capability-list">
+          <article class="capability"><span class="capability-number">01</span><div><h3>개발과 개선</h3><p>반복되는 업무를 살펴보고 웹 화면과 데이터 흐름으로 정리합니다.</p></div><span class="capability-tags">HTML · CSS · JavaScript</span><span class="capability-arrow" aria-hidden="true">↗</span></article>
+          <article class="capability"><span class="capability-number">02</span><div><h3>운영과 유지보수</h3><p>오류가 발생한 경로를 추적하고, 사용자가 다시 안정적으로 일할 수 있게 돕습니다.</p></div><span class="capability-tags">Java · SQL · 학사정보시스템</span><span class="capability-arrow" aria-hidden="true">↗</span></article>
+          <article class="capability"><span class="capability-number">03</span><div><h3>네트워크 대응</h3><p>회선과 트래픽을 함께 확인해 장애 원인을 좁혀 갑니다.</p></div><span class="capability-tags">스위치 · 트래픽 · 회선 점검</span><span class="capability-arrow" aria-hidden="true">↗</span></article>
         </div>
       </div>
     </section>
 
     <section id="projects" class="section">
       <div class="container fade-in">
-        <h2 class="section-title">Projects &amp; Experience</h2>
+        <div class="section-heading"><div><span class="section-index">03 / SELECTED WORK</span><h2 class="section-title">프로젝트<span class="title-dot">.</span></h2></div><p>가상 사례를 통해 문제를 정의하고 해결 과정을 정리했습니다. 아래 이미지는 실제 제품 화면이 아닌 설명용 개념도입니다.</p></div>
         <div class="projects-grid" id="project-list">
           <article class="project-card">
-            <div><h3>책임학점 사전 시뮬레이션 및 수요조사 시스템</h3><p class="project-desc">수기 검증 프로세스를 자동화한 업무 개선 사례</p><div class="star-box"><div class="star-item"><span class="star-label">상황</span><span class="star-desc">책임학점 산정의 반복적인 수기 검증으로 시간과 행정력이 소모됐습니다.</span></div><div class="star-item"><span class="star-label">행동</span><span class="star-desc">사전 수요조사와 시뮬레이션이 가능한 프로그램을 기획·개발했습니다.</span></div><div class="star-item"><span class="star-label">결과</span><span class="star-desc">검증 단계를 줄이고 불필요한 강의 개설을 사전에 확인할 수 있게 했습니다.</span></div></div></div>
-            <ul class="project-tags"><li>단독 개발</li><li>시뮬레이션</li><li>SQL</li></ul>
+            <div class="project-media project-media-simulation" role="img" aria-label="수요 입력에서 시뮬레이션과 검토로 이어지는 가상 사례 개념도"><span class="media-caption">가상 사례 개념도 / 01</span><div class="media-screen"><div class="media-screen-top"><span>학점 시뮬레이션</span><span>● ● ●</span></div><div class="media-screen-body"><div class="media-metric"><small>사전 수요</small><strong>01</strong><span class="media-bar"></span></div><div class="media-metric"><small>시뮬레이션</small><strong>02</strong><span class="media-bar"></span></div><div class="media-metric"><small>개설 검토</small><strong>03</strong><span class="media-bar"></span></div></div><div class="media-flow">수요 입력 <span>→</span> 기준 검토 <span>→</span> 판단 지원</div></div></div>
+            <div class="project-content"><span class="project-number">PROJECT / 01 · 업무 개선</span><h3>책임학점 사전 시뮬레이션 및 수요조사 시스템</h3><p class="project-desc">반복적인 수기 검증을 사전에 살펴볼 수 있는 흐름으로 바꾼 가상 사례입니다.</p><dl class="project-facts"><div><dt>문제</dt><dd>책임학점 산정에 시간과 행정력이 반복해서 소모됐습니다.</dd></div><div><dt>접근</dt><dd>사전 수요조사와 시뮬레이션 프로그램을 기획·개발했습니다.</dd></div><div><dt>결과</dt><dd>검증 단계를 줄이고 불필요한 강의 개설을 미리 확인할 수 있게 했습니다.</dd></div></dl><ul class="project-tags"><li>단독 개발</li><li>시뮬레이션</li><li>SQL</li></ul></div>
           </article>
           <article class="project-card">
-            <div><h3>통합학사정보시스템 유지보수 및 장애 대응</h3><p class="project-desc">장애 원인 파악과 사용자 중심 유지관리 사례</p><div class="star-box"><div class="star-item"><span class="star-label">상황</span><span class="star-desc">데이터와 프로그램 오류가 사용자 업무 중단으로 이어졌습니다.</span></div><div class="star-item"><span class="star-label">행동</span><span class="star-desc">소스와 쿼리를 점검하고 재발 방지 로직을 보완했습니다.</span></div><div class="star-item"><span class="star-label">결과</span><span class="star-desc">서비스 연속성과 시스템 신뢰도를 높였습니다.</span></div></div></div>
-            <ul class="project-tags"><li>Java</li><li>SQL</li><li>오류 대응</li></ul>
+            <div class="project-media project-media-maintenance" role="img" aria-label="오류 탐지, 원인 점검, 안정화 과정을 표현한 가상 사례 개념도"><span class="media-caption">가상 사례 개념도 / 02</span><div class="maintenance-visual"><div class="maintenance-top"><span>운영 상태</span><strong>● 정상화</strong></div><div class="maintenance-pulse"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div><div class="maintenance-steps"><span>오류 탐지</span><span>원인 점검</span><span>안정화</span></div></div></div>
+            <div class="project-content"><span class="project-number">PROJECT / 02 · 유지보수</span><h3>통합학사정보시스템 유지보수 및 장애 대응</h3><p class="project-desc">사용자 업무 중단을 줄이기 위해 오류가 생긴 경로를 다시 살핀 가상 사례입니다.</p><dl class="project-facts"><div><dt>문제</dt><dd>데이터와 프로그램 오류가 사용자 업무 중단으로 이어졌습니다.</dd></div><div><dt>접근</dt><dd>소스와 쿼리를 점검하고 재발 방지 로직을 보완했습니다.</dd></div><div><dt>결과</dt><dd>서비스 연속성과 시스템 신뢰도를 높이는 방향으로 정리했습니다.</dd></div></dl><ul class="project-tags"><li>Java</li><li>SQL</li><li>오류 대응</li></ul></div>
           </article>
           <article class="project-card extra-project">
-            <div><h3>현장 중심 네트워크 장애 조치</h3><p class="project-desc">스위치 하부 회선과 트래픽 흐름을 확인한 복구 사례</p><div class="star-box"><div class="star-item"><span class="star-label">상황</span><span class="star-desc">특정 구역에서 회선 연결 장애와 병목이 발생했습니다.</span></div><div class="star-item"><span class="star-label">행동</span><span class="star-desc">현장 회선 상태와 트래픽 흐름을 점검해 원인을 진단했습니다.</span></div><div class="star-item"><span class="star-label">결과</span><span class="star-desc">하부 인프라 흐름을 이해하고 서비스를 복구했습니다.</span></div></div></div>
-            <ul class="project-tags infra"><li>네트워크</li><li>스위치</li><li>트래픽</li></ul>
+            <div class="project-media project-media-network" role="img" aria-label="회선과 트래픽을 점검하는 가상 사례 개념도"><span class="media-caption">가상 사례 개념도 / 03</span><div class="network-visual"><span>현장</span><i></i><span>스위치</span><i></i><span>서비스</span></div></div>
+            <div class="project-content"><span class="project-number">PROJECT / 03 · 인프라</span><h3>현장 중심 네트워크 장애 조치</h3><p class="project-desc">스위치 하부 회선과 트래픽 흐름을 확인한 가상 복구 사례입니다.</p><dl class="project-facts"><div><dt>문제</dt><dd>특정 구역에서 회선 연결 장애와 병목이 발생했습니다.</dd></div><div><dt>접근</dt><dd>현장 회선 상태와 트래픽 흐름을 점검했습니다.</dd></div><div><dt>결과</dt><dd>하부 인프라 흐름을 이해하고 서비스를 복구했습니다.</dd></div></dl><ul class="project-tags"><li>네트워크</li><li>스위치</li><li>트래픽</li></ul></div>
           </article>
           <article class="project-card extra-project">
-            <div><h3>반응형 웹 포트폴리오</h3><p class="project-desc">직무 경험을 전달하는 가벼운 소개 페이지</p><div class="star-box"><div class="star-item"><span class="star-label">상황</span><span class="star-desc">경험과 강점을 체계적으로 전달할 웹 산출물이 필요했습니다.</span></div><div class="star-item"><span class="star-label">행동</span><span class="star-desc">모바일과 데스크톱에 대응하는 화면을 설계했습니다.</span></div><div class="star-item"><span class="star-label">결과</span><span class="star-desc">공개 소개와 패스키 보호 공간을 분리한 포트폴리오를 만들었습니다.</span></div></div></div>
-            <ul class="project-tags"><li>HTML</li><li>CSS</li><li>Vanilla JS</li></ul>
+            <div class="project-media project-media-portfolio" role="img" aria-label="공개 소개와 잠긴 공간을 분리한 포트폴리오 가상 사례 개념도"><span class="media-caption">가상 사례 개념도 / 04</span><div class="portfolio-visual"><div><span>PUBLIC</span><strong>소개</strong></div><span aria-hidden="true">→</span><div><span>PASSKEY</span><strong>나만의 자리</strong></div></div></div>
+            <div class="project-content"><span class="project-number">PROJECT / 04 · 웹</span><h3>반응형 웹 포트폴리오</h3><p class="project-desc">직무 경험을 전달하는 가벼운 소개 페이지입니다.</p><dl class="project-facts"><div><dt>문제</dt><dd>경험과 강점을 체계적으로 전달할 웹 산출물이 필요했습니다.</dd></div><div><dt>접근</dt><dd>모바일과 데스크톱에 대응하는 화면을 설계했습니다.</dd></div><div><dt>결과</dt><dd>공개 소개와 패스키 보호 공간을 분리했습니다.</dd></div></dl><ul class="project-tags"><li>HTML</li><li>CSS</li><li>Vanilla JS</li></ul></div>
           </article>
         </div>
-        <div class="toggle-container"><button id="toggle-projects-btn" class="btn btn-outline" type="button" aria-expanded="false" aria-controls="project-list">프로젝트 전체 보기 (+2)</button></div>
+        <div class="toggle-container"><button id="toggle-projects-btn" class="btn btn-outline" type="button" aria-expanded="false" aria-controls="project-list">사례 더 보기 (+2) <span aria-hidden="true">↓</span></button></div>
+      </div>
+    </section>
+
+    <section id="personal" class="section personal-section" aria-labelledby="personal-title">
+      <div class="container fade-in">
+        <div class="section-heading"><div><span class="section-index">04 / BEYOND WORK</span><h2 id="personal-title" class="section-title">일 밖의 이야기<span class="title-dot">.</span></h2></div></div>
+        <div class="personal-grid">
+          <article class="personal-card"><span class="personal-kicker">01 / PERSONALITY</span><h3>나의 성향</h3><p class="personal-detail">MBTI: INTJ-A</p><div class="personal-color-line" aria-hidden="true"></div></article>
+          <article class="personal-card"><span class="personal-kicker">02 / READING</span><h3>최근 읽은 책</h3><p class="personal-detail">《회복탄력성》 · 《명상수업》</p><div class="personal-color-line" aria-hidden="true"></div></article>
+          <article class="personal-card"><span class="personal-kicker">03 / LEARNING</span><h3>요즘 공부하는 것</h3><p class="personal-detail">보안기사 · King of LAN Switch</p><div class="personal-color-line" aria-hidden="true"></div></article>
+        </div>
       </div>
     </section>
 
     <section id="private-space" class="section private-section">
       <div class="container fade-in">
         <div class="private-heading">
-          <div><span class="privacy-label">PASSKEY PROTECTED</span><h2 class="section-title">나만의 자리</h2></div>
-          <span id="auth-state" class="state-pill">잠김</span>
+          <div class="private-heading-copy"><span class="privacy-label">PRIVATE</span><h2 class="section-title">나만의 자리</h2><p class="private-teaser">포트폴리오에 담지 못한 작업과 메모를 정리하는 개인 공간입니다.</p></div>
+          <button id="private-toggle" class="private-toggle" type="button" aria-expanded="false" aria-controls="private-content"><span id="private-toggle-label">나만의 자리 열기</span><span id="private-toggle-symbol" class="toggle-symbol" aria-hidden="true">+</span></button>
         </div>
-        <p class="private-intro">이 경계 안의 자료는 공개 페이지에 포함되지 않습니다. 서버가 패스키 인증과 소유권을 확인한 뒤에만 전송합니다.</p>
+
+        <div id="private-content" class="private-content" hidden>
+          <div class="private-access-status"><span id="auth-state" class="state-pill">잠김</span></div>
+          <p class="private-intro">이 경계 안의 자료는 공개 페이지에 포함되지 않습니다. 서버가 패스키 인증과 소유권을 확인한 뒤에만 전송합니다. 접어도 로그인은 유지되므로 사용을 마칠 때는 로그아웃해 주세요.</p>
 
         <div id="locked-panel" class="private-panel locked-panel">
           <div class="lock-icon" aria-hidden="true">🔐</div>
@@ -120,11 +144,12 @@
             <form id="add-passkey-form" class="inline-form"><label>새 패스키 이름<input id="new-passkey-name" type="text" minlength="2" maxlength="40" autocomplete="off" placeholder="예: 백업 보안키" required></label><button class="btn btn-primary" type="submit">패스키 추가</button></form>
           </div>
         </div>
-        <p id="status-message" class="status-message" role="status" aria-live="polite"></p>
+          <p id="status-message" class="status-message" role="status" aria-live="polite"></p>
+        </div>
       </div>
     </section>
   </main>
 
-  <footer><div class="container"><h2>Public Portfolio</h2><p>연락처와 계정 주소는 제출용 가상 페이지에서 제외했습니다.</p><p class="copyright">© 2026. Sample data only.</p></div></footer>
+  <footer><div class="container"><h2>Public Portfolio</h2><p>연락처와 계정 주소는 공개하지 않습니다.</p><p class="copyright">© 2026. Portfolio.</p></div></footer>
 </body>
 </html>

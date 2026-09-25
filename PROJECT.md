@@ -1,7 +1,7 @@
 # Project brief
 
 - **Name:** 패스키로 보호하는 자기소개 페이지
-- **Status:** Production deployed and verified; submission screenshot selection pending
+- **Status:** Production verified; public-page redesign in local review
 - **Owner:** 개인 프로젝트
 - **Repository:** https://github.com/lee5299/portfolio
 - **Production URL:** https://portfoliovercel-beta-three.vercel.app
@@ -13,7 +13,9 @@
 ## In scope
 
 - 기존 공개 자기소개 콘텐츠 유지
+- 공개 소개에는 사용자가 확정한 About Me와 MBTI·최근 읽은 책·요즘 공부하는 것을 표시한다. 취미와 임의의 성향 예시는 넣지 않는다.
 - 공개 영역과 비공개 영역의 시각적·기술적 분리
+- 비공개 영역을 기본 접힘 상태로 두고 명시적인 열기 동작 후 패스키 인증 UI를 표시
 - 패스키 등록, 로그인, 로그아웃 및 패스키 목록·삭제
 - 계정별 비공개 자료의 서버 측 접근 통제
 - 계정당 복구용 패스키 2개 등록과 삭제 후 접근 시험
@@ -49,3 +51,11 @@
 2. 새 자기소개 페이지의 기능과 디자인을 완성한다.
 3. 완성본을 Planner의 최종 origin에 통합하고 그 origin/RP ID에서 패스키를 새로 등록한다.
 4. 전환 검증 뒤 과제용 패스키·세션·challenge를 정리한다.
+
+## Visual direction in progress
+
+- 첫 화면은 '문제를 살피고, 필요한 것을 만듭니다.'로 시작하며 학사정보시스템 개발·유지보수와 업무 매뉴얼 정리 경험, 현재 배우는 분야를 짧게 소개한다.
+- 파스텔 민트 중심의 큰 제목과 넓은 여백, 절제된 스크롤 전환을 적용한다.
+- ‘경험과 배움’은 기존 업무와 교육과정에서 배우는 분야를 짧게 정리하고, ‘프로젝트’는 큰 개념도와 문제·접근·결과 설명을 짝지어 보여 준다.
+- 실제 프로젝트 화면을 받기 전에는 가상 사례 개념도로 표시한다. 패스키 서버와 비공개 API는 변경하지 않는다.
+- 성향·취미·독서는 공개 섹션의 짧은 정적 문구로 두고 현재 예시임을 분명히 표시한다. 밝은 분홍·파랑 성격 척도는 측정값처럼 보일 수 있어 사용하지 않는다.
