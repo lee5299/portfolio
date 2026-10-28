@@ -54,7 +54,16 @@ document.querySelector('.nav-private').addEventListener('click', () => {
   openPrivateSpace();
 });
 
+// GitHub Pages 같은 정적 호스팅에는 패스키 서버가 없으므로 운영 사이트로 안내한다.
+const SERVER_ORIGIN = 'https://portfoliovercel-beta-three.vercel.app';
+const STATIC_HOSTING = location.hostname.endsWith('github.io');
+
 async function api(path, options = {}) {
+  if (STATIC_HOSTING) {
+    const error = new Error(`비공개 공간은 ${SERVER_ORIGIN} 에서 이용할 수 있습니다.`);
+    error.code = 'STATIC_HOSTING';
+    throw error;
+  }
   const response = await fetch(path, {
     ...options,
     headers: { 'Content-Type': 'application/json', ...(options.headers ?? {}) },
@@ -239,4 +248,4 @@ if ('IntersectionObserver' in window && !reducedMotion) {
   document.querySelectorAll('.fade-in').forEach((element) => element.classList.add('visible'));
 }
 
-refreshPrivateSpace().catch((error) => showStatus(error.message, 'error'));
+refreshPrivateSpace().catch((error) => showStatus(error.message, error.code === 'STATIC_HOSTING' ? 'info' : 'error'));

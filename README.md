@@ -1,5 +1,8 @@
 # 패스키로 보호하는 자기소개 페이지
 
+- 🔗 **포트폴리오 보기:** https://portfoliovercel-beta-three.vercel.app (패스키 비공개 공간 포함)
+- 🔗 **소개 페이지 미러 (GitHub Pages):** https://lee5299.github.io/portfolio/
+
 공개 포트폴리오는 누구나 볼 수 있고, 별도의 개인 공간은 WebAuthn 패스키 인증 뒤에만 서버가 자료를 전달합니다. 비밀번호는 사용하지 않으며 운영 상태는 Supabase PostgreSQL에 저장합니다.
 
 ## Local start

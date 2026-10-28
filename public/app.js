@@ -471,7 +471,14 @@
   document.querySelector(".nav-private").addEventListener("click", () => {
     openPrivateSpace();
   });
+  const SERVER_ORIGIN = "https://portfoliovercel-beta-three.vercel.app";
+  const STATIC_HOSTING = location.hostname.endsWith("github.io");
   async function api(path, options = {}) {
+    if (STATIC_HOSTING) {
+      const error = new Error(`\uBE44\uACF5\uAC1C \uACF5\uAC04\uC740 ${SERVER_ORIGIN} \uC5D0\uC11C \uC774\uC6A9\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4.`);
+      error.code = "STATIC_HOSTING";
+      throw error;
+    }
     const response = await fetch(path, {
       ...options,
       headers: { "Content-Type": "application/json", ...options.headers ?? {} }
@@ -640,5 +647,5 @@
   } else {
     document.querySelectorAll(".fade-in").forEach((element) => element.classList.add("visible"));
   }
-  refreshPrivateSpace().catch((error) => showStatus(error.message, "error"));
+  refreshPrivateSpace().catch((error) => showStatus(error.message, error.code === "STATIC_HOSTING" ? "info" : "error"));
 })();
